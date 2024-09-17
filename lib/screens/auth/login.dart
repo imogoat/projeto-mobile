@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:imogoat/components/loading.dart';
 import 'package:imogoat/components/textInput.dart';
 import 'package:imogoat/components/passwordInput.dart';
 import 'package:imogoat/components/rememberMeRow.dart';
 import 'package:imogoat/components/signUpPrompt.dart';
 import 'package:imogoat/components/submitButton.dart';
+import 'package:imogoat/controllers/user_controller.dart';
+import 'package:imogoat/models/rest_client.dart';
+import 'package:imogoat/repositories/user_repository.dart';
 
 class LoginPage extends StatefulWidget { 
   const LoginPage({super.key});
@@ -13,8 +18,48 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final _formKey = GlobalKey<FormState>();
   final _email = TextEditingController();
-  final _senha = TextEditingController();
+  final _password = TextEditingController();
+  bool result = false;
+  final controller = ControllerUser(userRepository: UserRepository(restClient: GetIt.I.get<RestClient>()));
+
+  Future login(String email, String password) async {
+    try {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          context = context;
+          return const Loading();
+        }, 
+      );
+    result = await controller.login('/login', email, password);
+    if (result) {
+      Navigator.pushNamed(context, '/home');
+    } else {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+
+            title: const Text('Login Invalido'),
+            content:  Text('Seu E-mail e/ou senha inválidos'),
+            actions: [
+              TextButton(
+                child: const Text('OK'),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+    } catch(error) {
+      print(error);
+    }
+  }
   
   @override
   Widget build(BuildContext context) {
@@ -65,7 +110,7 @@ class _LoginPageState extends State<LoginPage> {
                     SizedBox(
                       height: 20,
                     ),
-                    PasswordInput(controller: _senha, labelText: 'Senha', hintText: 'Digite sua senha'),
+                    PasswordInput(controller: _password, labelText: 'Senha', hintText: 'Digite sua senha'),
                     SizedBox(
                       height: 20,
                     ),
@@ -81,10 +126,43 @@ class _LoginPageState extends State<LoginPage> {
                       height: 25,
                     ),
                     SizedBox(width: 365,
-                      child: SubmitButton(
-                        rota: '/home',
-                        texto: 'ENTRAR',
-                      )
+                      child: ElevatedButton(
+                      onPressed: () {
+                        login(_email.text, _password.text);
+                      }, 
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.white),
+                        side: MaterialStateProperty.all(
+                          const BorderSide(
+                              color:  Color.fromARGB(255, 24, 157, 130),
+                              width: 1.5, // Aumentar a espessura da borda
+                            )
+                        ),
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8)
+                          )
+                        ),
+                        overlayColor: MaterialStateProperty.resolveWith<Color?>(
+                          (Set<MaterialState> states) {
+                            if (states.contains(MaterialState.pressed)) {
+                              return Color.fromARGB(255, 46,60,78); // Cor ao pressionar
+                            }
+                            return null; // Defer to the widget's default.
+                          }
+                        ),
+                        elevation: MaterialStateProperty.all(0),
+                        minimumSize: MaterialStateProperty.all(const Size(200, 50)),
+                      ),
+                      child: Text(
+                        'Entrar',
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          color: Color.fromARGB(255, 24, 157, 130),
+                          fontSize: 18,
+                        ),
+                      ),
+                      ),
                     ),
                     SizedBox(
                       height: 20,

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:imogoat/core/rest_client/service_locator.dart';
 import 'package:imogoat/screens/home/home.dart';
 import 'package:imogoat/screens/auth/login.dart';
 import 'package:imogoat/screens/auth/sign.dart';
 
 void main() {
+  setupLocator();
   runApp(const MyApp());
 }
 
