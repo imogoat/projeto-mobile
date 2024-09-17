@@ -7,19 +7,18 @@ class DioCliente extends RestClient {
   Dio dio = Dio(BaseOptions(baseUrl: 'https://imogoat-api.onrender.com'));
 
   @override
-  Future<Map<String, dynamic>> get(String path,
-      {Map<String, dynamic>? params}) async {
-    SharedPreferences _sharedPreferences =
-        await SharedPreferences.getInstance();
-
+  Future<dynamic> get(String path, {Map<String, dynamic>? params}) async {
+    SharedPreferences _sharedPreferences = await SharedPreferences.getInstance();
     String? token = _sharedPreferences.getString('token');
+
     final response = await dio.get(path,
         queryParameters: params,
         options: Options(headers: {
           HttpHeaders.authorizationHeader: 'Bearer $token',
           'content-Type': 'application/json'
         }));
-    return response.data;
+
+    return response.data; // Aqui, response.data deve ser uma lista
   }
 
   @override

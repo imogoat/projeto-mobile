@@ -23,8 +23,13 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    controller.buscarImmobile();
     super.initState();
+    _loadImmobiles();
+  }
+
+    Future<void> _loadImmobiles() async {
+    await controller.buscarImmobile();
+    setState(() {});
   }
 
   @override
@@ -141,17 +146,17 @@ class _HomePageState extends State<HomePage> {
                 ),
               ],
             ),
-
             Stack(
               children: [
                 SizedBox(
-                  height: 400,
+                  height: 200, // Defina a altura desejada
+                  width: MediaQuery.of(context).size.width, // Largura total da tela
                   child: GridView.builder(
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       crossAxisSpacing: 10,
                       mainAxisSpacing: 10,
-                      childAspectRatio: 3 / 2,
+                      childAspectRatio: 1 / 1,
                     ),
                     itemCount: controller.immobile.length,
                     itemBuilder: (context, index) {
@@ -159,6 +164,7 @@ class _HomePageState extends State<HomePage> {
                       return GestureDetector(
                         onTap: () {},
                         child: Card(
+                          color: Colors.white,
                           elevation: 5.0,
                           margin: const EdgeInsets.all(6.0),
                           child: Padding(
@@ -170,19 +176,40 @@ class _HomePageState extends State<HomePage> {
                                   ? Image.network(
                                       immobile.images.first.url,
                                       height: 100,
-                                      width: 100,
+                                      width: MediaQuery.of(context).size.width,
                                       fit: BoxFit.cover,
                                     )
                                   : const Text('Imagem indisponível'),
                                 const SizedBox(height: 5),
-                                Text(
+                               Text(
                                   immobile.name,
                                   style: const TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                    color: Color.fromARGB(255, 29, 118, 233),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 11,
+                                  color: Color(0xFF265C5F),
                                   ),
                                   textAlign: TextAlign.center,
+                                ),
+                                const SizedBox(height: 5),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.apartment,
+                                      size: 12,
+                                      color: Color(0xFF265C5F),
+                                    ),
+                                    const SizedBox(width: 4),
+                                    Text(
+                                      immobile.type,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.normal,
+                                        fontSize: 10,
+                                        color: Color(0xFF265C5F),
+                                      ),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
@@ -193,7 +220,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ],
-            ),
+            )
           ],
         ),
       ),
