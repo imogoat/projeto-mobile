@@ -19,7 +19,7 @@ class User {
     return User(
       id: map['id'] ?? 0, 
       username: map['username'] ?? 'Não informado', 
-      email: map['emai'] ?? 'Não informado', 
+      email: map['email'] ?? 'Não informado', 
       password: map['password'] ?? 'Não informado', 
       number: map['number'] ?? 'Não informado', 
       role: map['role'] ?? 'user');

@@ -5,7 +5,6 @@ import 'package:imogoat/components/textInput.dart';
 import 'package:imogoat/components/passwordInput.dart';
 import 'package:imogoat/components/rememberMeRow.dart';
 import 'package:imogoat/components/signUpPrompt.dart';
-import 'package:imogoat/components/submitButton.dart';
 import 'package:imogoat/controllers/user_controller.dart';
 import 'package:imogoat/models/rest_client.dart';
 import 'package:imogoat/repositories/user_repository.dart';

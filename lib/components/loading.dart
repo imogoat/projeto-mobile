@@ -40,7 +40,7 @@ class _LoadingState extends State<Loading> {
                 ),
                 child: const Center(
                   child: SpinKitWaveSpinner(
-                    color: Colors.red,
+                    color: Color(0xFF265C5F),
                     size: 50,
                   ),
                 ),

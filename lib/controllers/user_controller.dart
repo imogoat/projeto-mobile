@@ -32,9 +32,23 @@ class ControllerUser extends ChangeNotifier {
   Future<bool> login(String path, String email, String password) async {
     try {
       loading = true;
+      notifyListeners();
       result = await _repository.loginUser(path, email, password);
     } finally {
       loading = false;
+      notifyListeners();
+      return result;
+    }
+  }
+
+  Future<bool> signUpUser(String path, String username, String email, String password, String number, String role) async {
+    try {
+      loading = true;
+      notifyListeners();
+      result = await _repository.signUpUser(path, username, email, password, number, role);
+    } finally {
+      loading = false;
+      notifyListeners();
       return result;
     }
   }

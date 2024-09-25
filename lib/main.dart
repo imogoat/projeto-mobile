@@ -3,6 +3,7 @@ import 'package:imogoat/core/rest_client/service_locator.dart';
 import 'package:imogoat/screens/home/home.dart';
 import 'package:imogoat/screens/auth/login.dart';
 import 'package:imogoat/screens/auth/sign.dart';
+import 'package:imogoat/styles/light.dart';
 
 void main() {
   setupLocator();
@@ -15,6 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      // theme: lightThema,
       title: 'ImoGoat',
       initialRoute: '/',
       routes: {
