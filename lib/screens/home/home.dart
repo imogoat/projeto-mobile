@@ -3,6 +3,9 @@ import 'package:imogoat/components/navigationBarCliente.dart';
 import 'package:imogoat/components/appBarCliente.dart';
 import 'package:imogoat/components/drawerCliente.dart';
 import 'package:imogoat/screens/home/mainHome.dart';
+import 'package:imogoat/screens/user/campaignPage.dart';
+import 'package:imogoat/screens/user/contactsPage.dart';
+import 'package:imogoat/screens/user/favoritePage.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -51,24 +54,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-class FavoritePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(child: Text('Favorite Page'));
-  }
-}
-
-class ContactsPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(child: Text('Contacts Page'));
-  }
-}
-class CampaignPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(child: Text('Campaign Page'));
-  }
-}
-

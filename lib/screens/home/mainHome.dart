@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:imogoat/components/buttonHomeCliente.dart';
 import 'package:imogoat/components/buttonHomeSearch.dart';
+import 'package:imogoat/controllers/favorite_controller.dart';
 import 'package:imogoat/controllers/immobile_controller.dart';
 import 'package:imogoat/models/rest_client.dart';
+import 'package:imogoat/repositories/favorite_repository.dart';
 import 'package:imogoat/repositories/immobile_repository.dart';
 import 'package:imogoat/screens/user/immobileDetailPage.dart';
 
@@ -16,6 +18,7 @@ class MainHome extends StatefulWidget {
 
 class _MainHomeState extends State<MainHome> {
   final controller = ControllerImmobile(immobileRepository: ImmobileRepository(restClient: GetIt.I.get<RestClient>()));
+  final controllerFavorite = ControllerFavorite(favoriteRepository: FavoriteRepository(restClient: GetIt.I.get<RestClient>()));
 
   bool _isLoading = true;
   List<bool> isFavorited = [];
@@ -32,6 +35,24 @@ class _MainHomeState extends State<MainHome> {
     setState(() {
       _isLoading = false;
     });
+  }
+
+  Future<void> _searchImmobiles() async {
+    setState(() {
+      _isLoading = true;
+    });
+    await controller.buscarImmobile(); // Recarrega os imóveis ao clicar no botão de pesquisar
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
+  Future favorite(int userId, int immobileId) async {
+    try {
+      await controllerFavorite.favoritarImmobile('/create-favorites', userId, immobileId);
+    } catch(error) {
+      print(error);
+    }
   }
   
   @override
@@ -109,10 +130,15 @@ class _MainHomeState extends State<MainHome> {
                                             borderRadius: BorderRadius.circular(15),
                                             child: TextFormField(
                                               cursorColor: Colors.black,
+                                              onChanged: (value) {
+                                                setState(() {
+                                                  controller.changeSearch(value);
+                                                });
+                                              },
                                               decoration: const InputDecoration(
                                                 prefixIcon: Icon(Icons.search),
                                                 labelText: 'Bairro de interesse',
-                                                labelStyle: TextStyle(color: Colors.black),
+                                                labelStyle: TextStyle(color: Colors.black, fontFamily: 'Poppins', fontSize: 14),
                                                 contentPadding: EdgeInsets.zero,
                                                 filled: true,
                                                 fillColor: Color(0xFFD4D4D4),
@@ -124,7 +150,9 @@ class _MainHomeState extends State<MainHome> {
                                         const SizedBox(width: 10),
                                         CustomButtonSearch(
                                           text: 'Pesquisar',
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            _searchImmobiles();
+                                          },
                                         ),
                                         const SizedBox(width: 10),
                                       ],
@@ -139,7 +167,18 @@ class _MainHomeState extends State<MainHome> {
                     ],
                   ),
                   const SizedBox(height: 20),
-                  Stack(
+                  controller.immobile.isEmpty 
+                  ? const Center(
+                          child: Text(
+                            "Nenhum imóvel encontrado",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.red,
+                            ),
+                          ),
+                        )
+                  : Stack(
                     children: [
                       SizedBox(
                         height: (controller.immobile.length / 2).ceil() * 200,
@@ -165,7 +204,7 @@ class _MainHomeState extends State<MainHome> {
                               child: Card(
                                 color: Colors.white,
                                 elevation: 5.0,
-                                margin: const EdgeInsets.all(6.0),
+                                margin: const EdgeInsets.all(7.0),
                                 child: Padding(
                                   padding: const EdgeInsets.all(5),
                                   child: Column(
@@ -197,6 +236,12 @@ class _MainHomeState extends State<MainHome> {
                                               setState(() {
                                                 isFavorited[index] = !isFavorited[index];
                                               });
+                                              final immobileId = controller.immobile[index].id;
+                                              final userId = 3; // Pegue o ID do usuário logado (você pode obter isso de uma sessão ou contexto)
+                                              
+                                              if (isFavorited[index]) {
+                                                favorite(userId, immobileId);
+                                              }
                                             },
                                             icon: Icon(
                                               isFavorited[index] ? Icons.favorite : Icons.favorite_border,

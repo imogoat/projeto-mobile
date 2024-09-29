@@ -30,23 +30,22 @@ class UserRepository {
 
   Future<bool> signUpUser(String path, String username, String email, String password, String number, String role) async {
 
-  print('Nome: $username - Email $email - Password $password - Número $number - Role $role');
-  print(path);
+    print('Nome: $username - Email $email - Password $password - Número $number - Role $role');
+    print(path);
 
-  try {
-    await _rest.post(path, {
-      "username": username,
-      "email": email,
-      "password": password,
-      "number": number,
-      "role": role,
-    },);
+    try {
+      await _rest.post(path, {
+        "username": username,
+        "email": email,
+        "password": password,
+        "number": number,
+        "role": role,
+      },);
 
-    return true;
-  } catch (error) {
-    print("Erro ao criar usuário: $error");
-    return false;
+      return true;
+    } catch (error) {
+      print("Erro ao criar usuário: $error");
+      return false;
+    }
   }
-}
-
 }

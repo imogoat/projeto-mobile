@@ -8,7 +8,7 @@ class ImmobileRepository {
  Future<List<Immobile>> buscarImovel() async {
     final response = await _rest.get('/immobile');
     return (response as List)
-        .map<Immobile>((item) => Immobile.toMap(item as Map<String, dynamic>))
+        .map<Immobile>((item) => Immobile.fromMap(item as Map<String, dynamic>))
         .toList();
   }
 }

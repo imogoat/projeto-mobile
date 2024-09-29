@@ -4,12 +4,14 @@ class PasswordInput extends StatefulWidget {
   final TextEditingController controller;
   final String hintText;
   final String labelText;
+  final String? Function(String?)? validator; // Adiciona um validador personalizado
 
   const PasswordInput({
     Key? key,
     required this.controller,
     required this.hintText,
     required this.labelText,
+    this.validator,
   }) : super(key: key);
 
   @override
@@ -63,6 +65,7 @@ class _PasswordInputState extends State<PasswordInput> {
           ),
         ),
       ),
+      validator: widget.validator,
     );
   }
 }

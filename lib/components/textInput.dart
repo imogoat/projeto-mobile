@@ -1,22 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class TextInput extends StatelessWidget {
   final TextEditingController controller;
   final String labelText;
   final String hintText;
+  final TextInputType keyboardType;
+  final List<TextInputFormatter>? inputFormatters;
 
   const TextInput({
     Key? key,
     required this.controller,
     required this.labelText,
     required this.hintText,
+    this.keyboardType = TextInputType.text,
+    this.inputFormatters,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
-      keyboardType: TextInputType.emailAddress,
+      keyboardType: keyboardType,
+      inputFormatters: inputFormatters,
       style: const TextStyle(
         fontFamily: 'Poppins',
         fontSize: 20,
@@ -46,6 +52,13 @@ class TextInput extends StatelessWidget {
           ),
         ),
       ),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'O campo não pode ser vazio';
+        }
+        print(value);
+        return null;
+      },
     );
   }
 }

@@ -33,6 +33,7 @@ class _LoginPageState extends State<LoginPage> {
         }, 
       );
     result = await controller.login('/login', email, password);
+    Navigator.pop(context);
     if (result) {
       Navigator.pushNamed(context, '/home');
     } else {
@@ -56,6 +57,7 @@ class _LoginPageState extends State<LoginPage> {
       );
     }
     } catch(error) {
+      Navigator.pop(context);
       print(error);
     }
   }
@@ -103,6 +105,7 @@ class _LoginPageState extends State<LoginPage> {
                   height: 60,
                 ),
                 Form(
+                  key: _formKey,
                   child: Column(
                   children: [
                     TextInput(controller: _email, labelText: 'Email', hintText: 'exemplo@gmail.com'),
@@ -127,7 +130,9 @@ class _LoginPageState extends State<LoginPage> {
                     SizedBox(width: 365,
                       child: ElevatedButton(
                       onPressed: () {
-                        login(_email.text, _password.text);
+                        if (_formKey.currentState!.validate()) {
+                          login(_email.text, _password.text);
+                        }
                       }, 
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(Colors.white),
