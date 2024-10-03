@@ -8,6 +8,7 @@ import 'package:imogoat/components/signUpPrompt.dart';
 import 'package:imogoat/controllers/user_controller.dart';
 import 'package:imogoat/models/rest_client.dart';
 import 'package:imogoat/repositories/user_repository.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget { 
   const LoginPage({super.key});

@@ -3,9 +3,11 @@ import 'package:imogoat/repositories/favorite_repository.dart';
 
 class ControllerFavorite {
   final FavoriteRepository favoriteRepository;
+  var _favoriteImmobiles = <Favorite>[];
 
   ControllerFavorite({required this.favoriteRepository});
 
+  // Método para favoritar o imóvel
   Future<void> favoritarImmobile(String path, int userId, int immobileId) async {
     try {
       await favoriteRepository.favoritarImmobile(path, userId, immobileId);
@@ -14,13 +16,29 @@ class ControllerFavorite {
     }
   }
 
-  List<Favorite> favoriteImmobiles = [];
+  // Getter para buscar os favoritos
+  List<Favorite> get favorites {
+    return _favoriteImmobiles;
+  }
 
-  Future<void> buscarFavoritos(int userId) async {
+  // Método para buscar imóveis favoritos do usuário
+  Future<void> buscarFavoritos(String userId) async {
     try {
-      favoriteImmobiles = await favoriteRepository.buscarFavoritos(userId);
+      _favoriteImmobiles = await favoriteRepository.buscarFavoritos(userId);
+      print('Quantidade de favoritos: ${_favoriteImmobiles.length}');
+      _favoriteImmobiles.forEach((fav) {
+        print('Imagens para favorito ${fav.id}: ${fav.images}');
+      });
     } catch (e) {
       print('Erro ao buscar favoritos: $e');
+    }
+  }
+
+  Future<void> deleteFavorite(String id) async {
+    try {
+      await favoriteRepository.deleteFavorite(id);
+    } catch (e) {
+      print('Erro ao remover o favorito: $e');
     }
   }
 

@@ -14,6 +14,8 @@ class UserRepository {
   Future<bool> loginUser(String path, String email, String password) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String token;
+    int id_user = 0;
+    String role = '';
 
     try {
       final response = await _rest.post(path, {
@@ -21,6 +23,10 @@ class UserRepository {
             'password': password
             },);
       token = response['token'];
+      id_user = response['id'];
+      role = response['role'];
+      await sharedPreferences.setString('id', id_user.toString());
+      await sharedPreferences.setString('tipo', role);
       await sharedPreferences.setString('token', token);
       return true;
     } catch(error) {
