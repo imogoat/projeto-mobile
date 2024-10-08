@@ -4,6 +4,7 @@ import 'package:imogoat/components/buttonHomeCliente.dart';
 import 'package:imogoat/components/buttonHomeSearch.dart';
 import 'package:imogoat/controllers/favorite_controller.dart';
 import 'package:imogoat/controllers/immobile_controller.dart';
+import 'package:imogoat/models/immobile.dart';
 import 'package:imogoat/models/rest_client.dart';
 import 'package:imogoat/repositories/favorite_repository.dart';
 import 'package:imogoat/repositories/immobile_repository.dart';
@@ -25,6 +26,7 @@ class _MainHomeState extends State<MainHome> {
 
   bool _isLoading = true;
   List<bool> isFavorited = [];
+  List<Immobile> filteredImmobiles = [];
 
   @override
   void initState() {
@@ -36,6 +38,7 @@ class _MainHomeState extends State<MainHome> {
 
   Future<void> _loadImmobiles() async {
     await controller.buscarImmobile();
+    filteredImmobiles = controller.immobile;
     isFavorited = List.generate(controller.immobile.length, (index) => false);
     setState(() {
       _isLoading = false;
@@ -79,6 +82,22 @@ class _MainHomeState extends State<MainHome> {
       _isLoading = true;
     });
     await controller.buscarImmobile();
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
+  Future<void> _searchImmobilesByType(String type) async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    await controller.buscarImmobile();
+
+    filteredImmobiles = controller.immobile.where((immobile) => immobile.type == type).toList();
+
+    isFavorited = List.generate(filteredImmobiles.length, (index) => false);
+
     setState(() {
       _isLoading = false;
     });
@@ -184,13 +203,19 @@ class _MainHomeState extends State<MainHome> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       SubmitButtonHome(
-                                          texto: 'Apartamento', onPressed: () {}),
+                                          texto: 'Apartamento', onPressed: () {
+                                            _searchImmobilesByType('apartamento');
+                                          }),
                                       const SizedBox(width: 3.5),
                                       SubmitButtonHome(
-                                          texto: 'Casa', onPressed: () {}),
+                                          texto: 'Casa', onPressed: () {
+                                            _searchImmobilesByType('casa');
+                                          }),
                                       const SizedBox(width: 3.5),
                                       SubmitButtonHome(
-                                          texto: 'Quitinete', onPressed: () {}),
+                                          texto: 'Quitinete', onPressed: () {
+                                            _searchImmobilesByType('quitinete');
+                                          }),
                                     ],
                                   ),
                                   Row(
@@ -241,7 +266,7 @@ class _MainHomeState extends State<MainHome> {
                   ],
                 ),
                 const SizedBox(height: 20),
-                controller.immobile.isEmpty
+                filteredImmobiles.isEmpty
                     ? const Center(
                         child: Text(
                           "Nenhum imóvel encontrado",
@@ -266,9 +291,9 @@ class _MainHomeState extends State<MainHome> {
                                 mainAxisSpacing: 10,
                                 childAspectRatio: 1 / 1,
                               ),
-                              itemCount: controller.immobile.length,
+                              itemCount: filteredImmobiles.length,
                               itemBuilder: (context, index) {
-                                final immobile = controller.immobile[index];
+                                final immobile = filteredImmobiles[index];
                                 return GestureDetector(
                                   onTap: () {
                                     Navigator.push(
