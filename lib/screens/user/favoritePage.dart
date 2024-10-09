@@ -56,12 +56,14 @@ class _FavoritePageState extends State<FavoritePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(0xFFF0F2F5),
         title: Text('Meus Favoritos',
           style: TextStyle(
             color: Color(0xFF2E3C4E)
           ),
         ),
       ),
+      backgroundColor: Color(0xFFF0F2F5),
       body: isLoading
           ? Center(child: CircularProgressIndicator(
             color: const Color(0xFF265C5F),

@@ -21,7 +21,7 @@ class _CustomCurvedNavigationBarState extends State<CustomCurvedNavigationBar> {
   @override
   Widget build(BuildContext context) {
     return CurvedNavigationBar(
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xFFF0F2F5),
       color: Color(0xFF1F7C70),
       animationCurve: Curves.easeInOut,
       animationDuration: Duration(milliseconds: 600),
@@ -30,8 +30,8 @@ class _CustomCurvedNavigationBarState extends State<CustomCurvedNavigationBar> {
       items: const <Widget>[
         Icon(Icons.home, size: 30),
         Icon(Icons.favorite, size: 30),
-        Icon(Icons.contacts, size: 30),
         Icon(Icons.campaign, size: 30),
+        Icon(Icons.contacts, size: 30),
       ],
       onTap: widget.onTap, // Chama a função onTap passada como argumento
     );

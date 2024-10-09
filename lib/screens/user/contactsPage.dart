@@ -12,23 +12,25 @@ class _ContactsPageState extends State<ContactsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color(0xFFF0F2F5),
         title: Text(
           'Contato',
           style: TextStyle(color: Color(0xFF2E3C4E)),
         ),
       ),
+      backgroundColor: Color(0xFFF0F2F5),
       body: SingleChildScrollView(
         child: Center(
-          child: Padding(  // Adicione o Padding aqui
-            padding: const EdgeInsets.symmetric(horizontal: 20.0), // Ajuste o valor conforme necessário
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Column(
               children: [
                 SizedBox(height: 20),
                 Positioned.fill(
                   child: ClipRRect(
                     child: Image.asset(
-                      width: 350,
-                      "assets/images/logo-teste.png",
+                      width: 250,
+                      "assets/images/logo-fundo-branco-removido.png",
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -41,7 +43,7 @@ class _ContactsPageState extends State<ContactsPage> {
                     fontSize: 15,
                   ),
                 ),
-                SizedBox(height: 50),
+                SizedBox(height: 30),
                 Text(
                   'O nosso aplicativo de aluguel de imóveis é uma plataforma completa e eficiente para facilitar o processo de busca e locação de imóveis para inquilinos. Nosso site torna o processo de aluguel mais fácil e eficiente para os inquilinos, proporcionando uma experiência fluida e direta.',
                   textAlign: TextAlign.justify,

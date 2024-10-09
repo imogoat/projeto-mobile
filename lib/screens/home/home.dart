@@ -47,8 +47,8 @@ class _HomePageState extends State<HomePage> {
             children: [
               MainHome(),
               FavoritePage(),
-              ContactsPage(),
               CampaignPage(),
+              ContactsPage(),
             ],
           )
     );
