@@ -33,64 +33,7 @@ class DrawerCliente extends StatelessWidget {
             ),
           )
         ),
-        ListTile(
-          title: Text(
-            'Home'.toUpperCase(),
-            style: TextStyle(
-              fontSize: 16,
-              fontFamily: 'Poppins',
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF1F7C70)
-            ),
-          ),
-          trailing: const Icon(Icons.arrow_forward),
-          onTap: () {
-            Navigator.pushNamed(context, '');
-          },
-        ),
-        ListTile(
-          title: Text('Favoritos'.toUpperCase(),
-          style: TextStyle(
-              fontSize: 16,
-              fontFamily: 'Poppins',
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF1F7C70)
-            ),
-          ),
-          trailing: const Icon(Icons.arrow_forward),
-          onTap: () {
-            Navigator.pushNamed(context, '');
-          },
-        ),
-       ListTile(
-          title: Text('Contato'.toUpperCase(),
-          style: TextStyle(
-              fontSize: 16,
-              fontFamily: 'Poppins',
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF1F7C70)
-            ),
-          ),
-          trailing: const Icon(Icons.arrow_forward),
-          onTap: () {
-            Navigator.pushNamed(context, '');
-          },
-        ),
-        ListTile(
-          title: Text('Anuncie aqui'.toUpperCase(),
-          style: TextStyle(
-              fontSize: 16,
-              fontFamily: 'Poppins',
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF1F7C70)
-            ),
-          ),
-          trailing: const Icon(Icons.arrow_forward),
-          onTap: () {
-            Navigator.pushNamed(context, '');
-          },
-        ),
-        const SizedBox(height: 15),
+        const SizedBox(height: 100),
         IconButton(
             onPressed: () => {
               logout(),

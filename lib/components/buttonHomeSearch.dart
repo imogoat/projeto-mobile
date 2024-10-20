@@ -19,7 +19,7 @@ class CustomButtonSearch extends StatelessWidget {
         side: MaterialStateProperty.all(
           const BorderSide(
             color:  Color(0xFF265C5F),
-            width: 1, // Aumentar a espessura da borda
+            width: 1,
           ),
         ),
         shape: MaterialStateProperty.all(

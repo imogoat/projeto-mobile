@@ -26,7 +26,7 @@ class UserRepository {
       id_user = response['id'];
       role = response['role'];
       await sharedPreferences.setString('id', id_user.toString());
-      await sharedPreferences.setString('tipo', role);
+      await sharedPreferences.setString('role', role);
       await sharedPreferences.setString('token', token);
       return true;
     } catch(error) {
@@ -51,6 +51,19 @@ class UserRepository {
       return true;
     } catch (error) {
       print("Erro ao criar usuário: $error");
+      return false;
+    }
+  }
+
+  Future<bool> updateUser(String path, String role) async {
+    try {
+      await _rest.put(path, {
+        "role": role,
+      },);
+      print('FELICIDADE');
+      return true;
+    } catch (error) {
+      print("Erro ao atualizar usuário: $error");
       return false;
     }
   }

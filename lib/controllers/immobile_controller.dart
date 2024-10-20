@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:imogoat/models/immobile.dart';
+import 'package:imogoat/models/immobile_post.dart';
 import 'package:imogoat/repositories/immobile_repository.dart';
 
 class ControllerImmobile extends ChangeNotifier {
@@ -24,6 +25,18 @@ class ControllerImmobile extends ChangeNotifier {
 
   ControllerImmobile({required ImmobileRepository immobileRepository}) : _repository = immobileRepository;
 
+  // Future<bool> login(String path, String email, String password) async {
+  //   try {
+  //     loading = true;
+  //     notifyListeners();
+  //     result = await _repository.loginUser(path, email, password);
+  //   } finally {
+  //     loading = false;
+  //     notifyListeners();
+  //     return result;
+  //   }
+  // }
+
   List<Immobile> get immobile {
     return _immobiles
         .where((e) => e.name.toLowerCase().contains(search.toLowerCase())).toList();
@@ -38,4 +51,12 @@ class ControllerImmobile extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  // Future<void> criarImmobile(String path, ImmobilePost data) {
+  //   try {
+
+  //   } catch {
+
+  //   }
+  // }
 }

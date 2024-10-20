@@ -26,13 +26,13 @@ class _ContactsPageState extends State<ContactsPage> {
             child: Column(
               children: [
                 SizedBox(height: 20),
-                Positioned.fill(
-                  child: ClipRRect(
-                    child: Image.asset(
-                      width: 250,
-                      "assets/images/logo-fundo-branco-removido.png",
-                      fit: BoxFit.cover,
-                    ),
+                // Removido Positioned.fill
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(8.0), // Para um pouco de arredondamento
+                  child: Image.asset(
+                    "assets/images/logo-fundo-branco-removido.png",
+                    width: 250,
+                    fit: BoxFit.cover,
                   ),
                 ),
                 SizedBox(height: 20),
@@ -50,7 +50,7 @@ class _ContactsPageState extends State<ContactsPage> {
                   style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w500,
-                    fontFamily: 'Poppins'
+                    fontFamily: 'Poppins',
                   ),
                 ),
                 SizedBox(height: 20),
