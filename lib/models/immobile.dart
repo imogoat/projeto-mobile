@@ -2,12 +2,14 @@ class Immobile {
   int id;
   String name;
   String type;
+  int proprietaryId;
   List<ImmobileImage> images;
 
   Immobile({
     required this.id,
     required this.name,
     required this.type,
+    required this.proprietaryId,
     required this.images,
   });
 
@@ -16,7 +18,8 @@ class Immobile {
     return Immobile(
       id: map['id'] ?? 0, 
       name: map['name'] ?? 'Não informado', 
-      type: map['type'] ?? 'Não informado', 
+      type: map['type'] ?? 'Não informado',
+      proprietaryId: map['proprietaryId'] ?? 'Não informado',
       images: map['images'] != null
           ? List<ImmobileImage>.from(map['images'].map<ImmobileImage>((image) => ImmobileImage.fromMap(image)))
           : [],
@@ -29,6 +32,7 @@ class Immobile {
       'id': id,
       'name': name,
       'type': type,
+      'proprietaryId': proprietaryId,
       'images': images.map((image) => image.toMap()).toList(),
     };
   }

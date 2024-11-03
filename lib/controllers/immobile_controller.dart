@@ -12,6 +12,8 @@ class ControllerImmobile extends ChangeNotifier {
   bool loading = false;
   bool searching = false;
 
+  int? lastCreatedImmobileId;
+
   void changeSearch(String key) {
     search = key;
     notifyListeners();
@@ -24,18 +26,6 @@ class ControllerImmobile extends ChangeNotifier {
   }
 
   ControllerImmobile({required ImmobileRepository immobileRepository}) : _repository = immobileRepository;
-
-  // Future<bool> login(String path, String email, String password) async {
-  //   try {
-  //     loading = true;
-  //     notifyListeners();
-  //     result = await _repository.loginUser(path, email, password);
-  //   } finally {
-  //     loading = false;
-  //     notifyListeners();
-  //     return result;
-  //   }
-  // }
 
   List<Immobile> get immobile {
     return _immobiles
@@ -52,11 +42,27 @@ class ControllerImmobile extends ChangeNotifier {
     }
   }
 
-  // Future<void> criarImmobile(String path, ImmobilePost data) {
-  //   try {
+  Future<void> createImmobile(String path, ImmobilePost data) async {
+    try {
+      loading = true;
+      notifyListeners();
+      await _repository.createImmobile(path, data);
+    } finally {
+      loading = false;
+      notifyListeners();
+    }
+  }
 
-  //   } catch {
+  Future<int?> getLastCreatedImmobileId() async {
+    try {
+      loading = true;
+      notifyListeners();
+      lastCreatedImmobileId = await _repository.getLastCreatedImmobileId();
+      return lastCreatedImmobileId;
+    } finally {
+      loading = false;
+      notifyListeners();
+    }
+  }
 
-  //   }
-  // }
 }

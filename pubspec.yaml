@@ -45,17 +45,19 @@ dependencies:
   mask_text_input_formatter: ^2.9.0
   flutter_native_splash: ^1.2.0
   flutter_launcher_icons: ^0.9.1
+  image_picker: ^0.8.2
+  http: ^0.13.6
 
 flutter_native_splash:
   color: "#FFFFFF"
-  image: "assets/images/logo_pequena.png"
+  image: "assets/images/logo_nova.png"
   android: true
 
 flutter_icons:
-  image_path: "assets/images/logo_pequena.png"
+  image_path: "assets/images/logo_imogoat.png"
   android: "launcher_icon"
   adaptive_icon_background: "#FFFFFF"
-  adaptive_icon_foreground: "assets/images/logo_pequena.png"
+  adaptive_icon_foreground: "assets/images/logo_imogoat.png"
 
 dev_dependencies:
   flutter_test:

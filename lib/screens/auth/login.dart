@@ -18,13 +18,20 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final httpCliente = GetIt.I.get<RestClient>();
   final _formKey = GlobalKey<FormState>();
   final _email = TextEditingController();
   final _password = TextEditingController();
+  String token = '';
+  String role = '';
+  int? id_user;
   bool result = false;
   final controller = ControllerUser(userRepository: UserRepository(restClient: GetIt.I.get<RestClient>()));
 
+
   Future login(String email, String password) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+
     try {
       showDialog(
         context: context,
@@ -33,11 +40,28 @@ class _LoginPageState extends State<LoginPage> {
           return const Loading();
         }, 
       );
-    result = await controller.login('/login', email, password);
-    Navigator.pop(context);
-    if (result) {
+    
+    final response = await httpCliente.post('/login', {
+      'email': email,
+      'password': password,
+    });
+
+    token = response['token'];
+    id_user = response['id'];
+    role = response['role'];
+    await sharedPreferences.setString('id', id_user.toString());
+    await sharedPreferences.setString('role', role);
+    await sharedPreferences.setString('token', token);
+
+    if (role == 'user') {
       Navigator.pushNamed(context, '/home');
-    } else {
+    } else if (role == 'owner') {
+      Navigator.pushNamed(context, '/homeOwner');
+    } else if (role == 'admin') {
+      Navigator.pushNamed(context, '/homeAdm');
+    }
+    
+    } catch (error) {
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -56,10 +80,6 @@ class _LoginPageState extends State<LoginPage> {
           );
         },
       );
-    }
-    } catch(error) {
-      Navigator.pop(context);
-      print(error);
     }
   }
   

@@ -3,7 +3,6 @@ import 'package:get_it/get_it.dart';
 import 'package:imogoat/controllers/user_controller.dart';
 import 'package:imogoat/models/rest_client.dart';
 import 'package:imogoat/repositories/user_repository.dart';
-import 'package:imogoat/screens/owner/createImmobilePage.dart';
 import 'package:imogoat/screens/owner/flow/step_one_immobilePage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:imogoat/styles/color_constants.dart';

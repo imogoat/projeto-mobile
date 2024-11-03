@@ -52,6 +52,38 @@ class _FavoritePageState extends State<FavoritePage> {
     }
   }
 
+  Future<void> removeFavorite(String immobileId) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String userId = sharedPreferences.getString('id').toString();
+    
+    try {
+      // Tente encontrar o favorito para remoção
+      int? favoriteId; 
+
+      for (var fav in controllerFavorite.favorites) {
+        if (fav.immobileId.toString() == immobileId) {
+          favoriteId = fav.id;
+          break;
+        }
+      }
+
+      if (favoriteId != null) {
+        // Remova o favorito do repositório
+        await controllerFavorite.deleteFavorite(favoriteId.toString());
+        print('Favorito removido com sucesso!');
+
+        // Atualize a lista localmente
+        setState(() {
+          favoriteImmobiles.removeWhere((fav) => fav.immobileId.toString() == immobileId);
+        });
+      } else {
+        print('Nenhum favorito encontrado para este imóvel.');
+      }
+    } catch (e) {
+      print('Erro ao remover o favorito: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -177,7 +209,7 @@ class _FavoritePageState extends State<FavoritePage> {
                                                 icon: Icon(Icons.favorite, color: Colors.red),
                                                 onPressed: () async {
                                                   await removeFavorite(favorite.immobile.id.toString());
-                                                  await _loadFavorites();
+                                                  // await _loadFavorites();
                                                 },
                                               ),
                                             ],
@@ -216,34 +248,5 @@ class _FavoritePageState extends State<FavoritePage> {
                   ),
                 ),
     );
-  }
-
-
-  // Função para remover favorito (mesmo código anterior)
-  Future<void> removeFavorite(String immobileId) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    String userId = sharedPreferences.getString('id').toString();
-    
-    try {
-      await controllerFavorite.buscarFavoritos(userId);
-
-      int? favoriteId; 
-
-      for (var fav in controllerFavorite.favorites) {
-        if (fav.immobileId.toString() == immobileId) {
-          favoriteId = fav.id;
-          break;
-        }
-      }
-
-      if (favoriteId != null) {
-        await controllerFavorite.deleteFavorite(favoriteId.toString());
-        print('Favorito removido com sucesso!');
-      } else {
-        print('Nenhum favorito encontrado para este imóvel.');
-      }
-    } catch (e) {
-      print('Erro ao remover o favorito: $e');
-    }
   }
 }

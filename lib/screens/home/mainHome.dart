@@ -28,13 +28,25 @@ class _MainHomeState extends State<MainHome> {
   List<bool> isFavorited = [];
   List<Immobile> filteredImmobiles = [];
 
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _loadImmobiles();
+  //   _loadFavorites();
+  //   _buscarIdFavorite();
+  // }
+
   @override
   void initState() {
     super.initState();
-    _loadImmobiles();
-    _loadFavorites();
-    _buscarIdFavorite();
+    _loadData();
   }
+
+  Future<void> _loadData() async {
+    await _loadImmobiles();
+    await _loadFavorites();
+  }
+
 
   Future<void> _loadImmobiles() async {
     await controller.buscarImmobile();

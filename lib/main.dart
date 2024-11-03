@@ -3,6 +3,8 @@ import 'package:imogoat/core/rest_client/service_locator.dart';
 import 'package:imogoat/screens/home/home.dart';
 import 'package:imogoat/screens/auth/login.dart';
 import 'package:imogoat/screens/auth/sign.dart';
+import 'package:imogoat/screens/home/homeAdm.dart';
+import 'package:imogoat/screens/home/homeOwner.dart';
 import 'package:imogoat/screens/home/initialPage.dart';
 import 'package:imogoat/screens/owner/flow/step_three_immobile.dart';
 import 'package:imogoat/screens/owner/flow/step_two_immobile.dart';
@@ -26,6 +28,8 @@ class MyApp extends StatelessWidget {
         "/": (context) => const LoginPage(),
         "/signup": (context) => const SignUpPage(),
         "/home": (context) => const HomePage(),
+        "/homeOwner": (context) => const HomePageOwner(),
+        "/homeAdm": (context) => const HomePageAdm(),
         "/initial": (context) => const PaginaInicial(),
         "/step_two": (context) => const StepTwoCreateImmobilePage(),
         "/step_three": (context) => const StepThreeCreateImmobilePage(),

@@ -6,7 +6,6 @@ import 'package:imogoat/controllers/immobile_controller.dart';
 import 'package:imogoat/models/immobile_post.dart';
 import 'package:imogoat/models/rest_client.dart';
 import 'package:imogoat/repositories/immobile_repository.dart';
-import 'package:imogoat/screens/owner/flow/step_two_immobile.dart';
 
 class StapeOneCreateImmobilePage extends StatefulWidget {
   const StapeOneCreateImmobilePage({super.key});
@@ -35,57 +34,6 @@ class _CreateImmobilePageState extends State<StapeOneCreateImmobilePage> {
     _type.dispose();
     super.dispose();
   }
-
-  // void _cadastrarImovel() {
-  //   final name = _name.text;
-  //   final number = int.tryParse(_number.text);
-  //   final type = _type.text;
-  //   final location = _location.text;
-  //   final bairro = _bairro.text;
-  //   final city = _city.text;
-  //   final reference = _reference.text;
-  //   final value = double.tryParse(_value.text);
-  //   final numberOfBedrooms = int.tryParse(_numberOfBedrooms.text);
-  //   final numberOfBathrooms = int.tryParse(_numberOfBathrooms.text);
-  //   final description = _description.text;
-  //   final proprietaryId = int.tryParse(_proprietaryId.text);
-
-  //   if (name.isEmpty || number == null || type.isEmpty || location.isEmpty ||
-  //       bairro.isEmpty || city.isEmpty || reference.isEmpty || value == null ||
-  //       numberOfBedrooms == null || numberOfBathrooms == null) {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       const SnackBar(content: Text('Por favor, preencha todos os campos corretamente.')),
-  //     );
-  //     return;
-  //   }
-
-  //   final immobileData = {
-  //     "name": name,
-  //     "number": number,
-  //     "type": type,
-  //     "location": location,
-  //     "bairro": bairro,
-  //     "city": city,
-  //     "reference": reference,
-  //     "value": value,
-  //     "numberOfBedrooms": numberOfBedrooms,
-  //     "numberOfBathrooms": numberOfBathrooms,
-  //     "garagem": _hasGarage, // Usando a variável boolean
-  //     "description": description,
-  //     "proprietaryId": proprietaryId,
-  //   };
-
-  //   controller.createImmobile(immobileData).then((response) {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       const SnackBar(content: Text('Imóvel cadastrado com sucesso!')),
-  //     );
-  //     Navigator.pop(context);
-  //   }).catchError((error) {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(content: Text('Erro ao cadastrar imóvel: $error')),
-  //     );
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
