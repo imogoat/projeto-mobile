@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class TextInput extends StatelessWidget {
+class TextInput extends StatefulWidget {
   final TextEditingController controller;
   final String labelText;
   final String hintText;
   final TextInputType keyboardType;
+  final String? Function(String?)? validator;
   final List<TextInputFormatter>? inputFormatters;
 
   const TextInput({
@@ -14,15 +15,21 @@ class TextInput extends StatelessWidget {
     required this.labelText,
     required this.hintText,
     this.keyboardType = TextInputType.text,
+    this.validator,
     this.inputFormatters,
   }) : super(key: key);
 
   @override
+  _TextInputState createState() => _TextInputState();
+}
+
+class _TextInputState extends State<TextInput> {
+  @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: controller,
-      keyboardType: keyboardType,
-      inputFormatters: inputFormatters,
+      controller: widget.controller,
+      keyboardType: widget.keyboardType,
+      inputFormatters: widget.inputFormatters,
       style: const TextStyle(
         fontFamily: 'Poppins',
         fontSize: 20,
@@ -31,12 +38,12 @@ class TextInput extends StatelessWidget {
       decoration: InputDecoration(
         fillColor: Colors.white,
         filled: true,
-        labelText: labelText,
+        labelText: widget.labelText,
         labelStyle: const TextStyle(
           fontFamily: 'Poppins',
           color: Colors.grey,
         ),
-        hintText: hintText,
+        hintText: widget.hintText,
         hintStyle: const TextStyle(
           fontFamily: 'Poppins',
           fontSize: 18,
@@ -52,13 +59,7 @@ class TextInput extends StatelessWidget {
           ),
         ),
       ),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'O campo não pode ser vazio';
-        }
-        print(value);
-        return null;
-      },
+      validator: widget.validator,
     );
   }
 }

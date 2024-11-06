@@ -57,18 +57,18 @@ class _MainHomeState extends State<MainHome> {
     });
   }
 
-  Future<void> _buscarIdFavorite() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    String userId = sharedPreferences.getString('id').toString();
-    try {
-      await controllerFavorite.buscarFavoritos(userId);
-      for (var fav in controllerFavorite.favorites) {
-        print('ID do Favorito: ${fav.id}, ID do Imóvel: ${fav.immobileId}');
-      }
-    } catch (error) {
-      print('Erro ao buscar Id do favorito: $error');
-    }
-  }
+  // Future<void> _buscarIdFavorite() async {
+  //   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  //   String userId = sharedPreferences.getString('id').toString();
+  //   try {
+  //     await controllerFavorite.buscarFavoritos(userId);
+  //     for (var fav in controllerFavorite.favorites) {
+  //       print('ID do Favorito: ${fav.id}, ID do Imóvel: ${fav.immobileId}');
+  //     }
+  //   } catch (error) {
+  //     print('Erro ao buscar Id do favorito: $error');
+  //   }
+  // }
 
   Future<void> _loadFavorites() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -245,14 +245,14 @@ class _MainHomeState extends State<MainHome> {
                                             },
                                             decoration: const InputDecoration(
                                               prefixIcon: Icon(Icons.search),
-                                              labelText: 'Bairro de interesse',
+                                              labelText: 'Digite sua busca',
                                               labelStyle: TextStyle(
                                                   color: Colors.black,
                                                   fontFamily: 'Poppins',
-                                                  fontSize: 14),
+                                                  fontSize: 15),
                                               contentPadding: EdgeInsets.zero,
                                               filled: true,
-                                              fillColor: Color(0xFFD4D4D4),
+                                              fillColor: Colors.transparent,
                                               border: InputBorder.none,
                                             ),
                                           ),

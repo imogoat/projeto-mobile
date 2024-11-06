@@ -47,6 +47,7 @@ dependencies:
   flutter_launcher_icons: ^0.9.1
   image_picker: ^0.8.2
   http: ^0.13.6
+  carousel_slider: ^5.0.0
 
 flutter_native_splash:
   color: "#FFFFFF"

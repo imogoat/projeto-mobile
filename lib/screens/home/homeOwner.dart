@@ -3,6 +3,7 @@ import 'package:imogoat/components/appBarCliente.dart';
 import 'package:imogoat/components/drawerCliente.dart';
 import 'package:imogoat/components/navigationBarOwner.dart';
 import 'package:imogoat/screens/home/mainHome.dart';
+import 'package:imogoat/screens/owner/flow/step_one_immobilePage.dart';
 import 'package:imogoat/screens/owner/owners_propertiesPage.dart';
 import 'package:imogoat/screens/user/campaignPage.dart';
 import 'package:imogoat/screens/user/contactsPage.dart';

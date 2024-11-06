@@ -56,6 +56,7 @@ class DioCliente extends RestClient {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
 
     String? token = sharedPreferences.getString('token');
+    print('Token: $token');
 
     try {
       final response = await dio.delete('$path/$data',
@@ -63,6 +64,7 @@ class DioCliente extends RestClient {
             HttpHeaders.authorizationHeader: 'Bearer $token',
             'content-Type': 'application/json'
           }));
+      print('Path: $response');
       return response.data;
     } catch (e) {
       print('Erro $e');

@@ -6,6 +6,7 @@ import 'package:imogoat/controllers/immobile_controller.dart';
 import 'package:imogoat/models/immobile_post.dart';
 import 'package:imogoat/models/rest_client.dart';
 import 'package:imogoat/repositories/immobile_repository.dart';
+import 'package:imogoat/styles/color_constants.dart';
 
 class StapeOneCreateImmobilePage extends StatefulWidget {
   const StapeOneCreateImmobilePage({super.key});
@@ -35,6 +36,45 @@ class _CreateImmobilePageState extends State<StapeOneCreateImmobilePage> {
     super.dispose();
   }
 
+  Future<void> _showDialog(BuildContext context) async {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Dados Inválidos', 
+          style: TextStyle(
+            color: verde_black,
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+            fontFamily: 'Poppins',
+          )),
+          content: const Text('Preencha todos os campos corretamente!',
+          style: TextStyle(
+            color: verde_medio,
+            fontWeight: FontWeight.normal,
+            fontSize: 16,
+            fontFamily: 'Poppins',
+          )),
+          actions: [
+            TextButton(
+              child: const Text('OK', 
+              style: TextStyle(
+                color: Color(0xFF1F7C70),
+                fontWeight: FontWeight.bold,
+                // fontSize: 22,
+                fontFamily: 'Poppins',
+              ),
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,11 +100,31 @@ class _CreateImmobilePageState extends State<StapeOneCreateImmobilePage> {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  TextInput(controller: _name, labelText: 'Nome do imóvel', hintText: 'Ex: Apartamento 01'),
+                  TextInput(controller: _name, labelText: 'Nome do imóvel', hintText: 'Ex: Apartamento 01', keyboardType: TextInputType.name, 
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'O campo não pode ser vazio';
+                    }
+                    return null;
+                  }),
                   const SizedBox(height: 10),
-                  TextInput(controller: _number, labelText: 'Número do imóvel', hintText: 'Ex: 123'),
+                  TextInput(controller: _number, labelText: 'Número do imóvel', hintText: 'Ex: 123', keyboardType: TextInputType.number, 
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'O campo não pode ser vazio';
+                    }
+                    return null;
+                  }),
                   const SizedBox(height: 10),
-                  TextInput(controller: _type, labelText: 'Tipo do imóvel', hintText: 'Ex: apartamento/casa/quitinete'),
+                  TextInput(controller: _type, labelText: 'Tipo do imóvel', hintText: 'Ex: apartamento/casa/quitinete', keyboardType: TextInputType.name, 
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'O campo não pode ser vazio';
+                    } else if (!['apartamento', 'casa', 'quitinete'].contains(value.toLowerCase())) {
+                        return 'O nome do imóvel deve ser: apartamento, casa ou quitinete';
+                    }
+                    return null;
+                  }),
                   const SizedBox(height: 10),
                   const SizedBox(height: 20),
                   SizedBox(
@@ -76,6 +136,8 @@ class _CreateImmobilePageState extends State<StapeOneCreateImmobilePage> {
                           Navigator.pushNamed(context, '/step_two', arguments: {
                           "immobile_data": immobile_post
                         });
+                        } else {
+                          _showDialog(context);
                         }
                       },
                       style: ButtonStyle(

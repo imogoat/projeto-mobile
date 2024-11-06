@@ -37,6 +37,12 @@ class _HomePageState extends State<HomePageAdm> {
             );
         },
       ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Color(0xFF1F7C70),
+        foregroundColor: Colors.white,
+        child: const Icon(Icons.add),
+        onPressed: () {}
+      ),
       body: PageView(
             controller: _pageController,
             onPageChanged: (value) => setState(() {

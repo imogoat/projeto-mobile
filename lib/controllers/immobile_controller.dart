@@ -53,6 +53,14 @@ class ControllerImmobile extends ChangeNotifier {
     }
   }
 
+  Future<void> deleteImmobile(String immobileId) async {
+    try {
+      await _repository.deleteImmobile(immobileId);
+    } catch (e) {
+      print('Erro ao remover o imóvel: $e');
+    }
+  }
+
   Future<int?> getLastCreatedImmobileId() async {
     try {
       loading = true;

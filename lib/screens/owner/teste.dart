@@ -29,6 +29,7 @@ class _OwnersPropertiesPageState extends State<OwnersPropertiesPage> {
     _loadImmobiles();
   }
 
+  // Função de diálogo de confirmação
   Future<void> confirmDelete(String immobileId) async {
     final confirmed = await showDialog(
       context: context,
@@ -74,6 +75,7 @@ class _OwnersPropertiesPageState extends State<OwnersPropertiesPage> {
     });
   }
   
+  // Função para remover o imóvel
   Future<void> removeImmobile(String immobileId) async {
     try {
       await controller.deleteImmobile(immobileId);
@@ -218,7 +220,7 @@ class _OwnersPropertiesPageState extends State<OwnersPropertiesPage> {
                                             const Spacer(),
                                               IconButton(
                                                 onPressed: () {
-                                                  final immobileId = immobile.id; // Mudança aqui
+                                                  final immobileId = controller.immobile[index].id;
                                                   print('Id do imóvel: $immobileId');
                                                   confirmDelete(immobileId.toString());
                                                 },

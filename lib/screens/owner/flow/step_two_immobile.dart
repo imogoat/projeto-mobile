@@ -6,6 +6,7 @@ import 'package:imogoat/controllers/immobile_controller.dart';
 import 'package:imogoat/models/immobile_post.dart';
 import 'package:imogoat/models/rest_client.dart';
 import 'package:imogoat/repositories/immobile_repository.dart';
+import 'package:imogoat/styles/color_constants.dart';
 
 class StepTwoCreateImmobilePage extends StatefulWidget {
   const StepTwoCreateImmobilePage({super.key});
@@ -32,6 +33,45 @@ class _CreateImmobilePageState extends State<StepTwoCreateImmobilePage> {
     _city.dispose();
     _reference.dispose();
     super.dispose();
+  }
+
+  Future<void> _showDialog(BuildContext context) async {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Dados Inválidos', 
+          style: TextStyle(
+            color: verde_black,
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+            fontFamily: 'Poppins',
+          )),
+          content: const Text('Preencha todos os campos corretamente!',
+          style: TextStyle(
+            color: verde_medio,
+            fontWeight: FontWeight.normal,
+            fontSize: 16,
+            fontFamily: 'Poppins',
+          )),
+          actions: [
+            TextButton(
+              child: const Text('OK', 
+              style: TextStyle(
+                color: Color(0xFF1F7C70),
+                fontWeight: FontWeight.bold,
+                // fontSize: 22,
+                fontFamily: 'Poppins',
+              ),
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -64,13 +104,41 @@ class _CreateImmobilePageState extends State<StepTwoCreateImmobilePage> {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  TextInput(controller: _location, labelText: 'Localização do imóvel', hintText: 'Ex: Rua do meio'),
+                  TextInput(controller: _location, labelText: 'Localização do imóvel', hintText: 'Ex: Rua do meio',
+                  keyboardType: TextInputType.name, 
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'O campo não pode ser vazio';
+                    }
+                    return null;
+                  }),
                   const SizedBox(height: 10),
-                  TextInput(controller: _bairro, labelText: 'Bairro', hintText: 'Ex: Parque de Exposição'),
+                  TextInput(controller: _bairro, labelText: 'Bairro', hintText: 'Ex: Parque de Exposição', 
+                  keyboardType: TextInputType.name, 
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'O campo não pode ser vazio';
+                    }
+                    return null;
+                  }),
                   const SizedBox(height: 10),
-                  TextInput(controller: _city, labelText: 'Cidade', hintText: 'Ex: Picos'),
+                  TextInput(controller: _city, labelText: 'Cidade', hintText: 'Ex: Picos', 
+                  keyboardType: TextInputType.name, 
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'O campo não pode ser vazio';
+                    }
+                    return null;
+                  }),
                   const SizedBox(height: 10),
-                  TextInput(controller: _reference, labelText: 'Ponto de Referencia', hintText: 'Ex: Ao lado da UFPI'),
+                  TextInput(controller: _reference, labelText: 'Ponto de Referencia', hintText: 'Ex: Ao lado da UFPI',
+                  keyboardType: TextInputType.name, 
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'O campo não pode ser vazio';
+                    }
+                    return null;
+                  }),
                   const SizedBox(height: 20),
                   SizedBox(
                     width: 365,
@@ -82,6 +150,8 @@ class _CreateImmobilePageState extends State<StepTwoCreateImmobilePage> {
                           Navigator.pushNamed(context, '/step_three', arguments: {
                           "immobile_data": immobile_post
                         });
+                        } else {
+                          _showDialog(context);
                         }
                       },
                       style: ButtonStyle(

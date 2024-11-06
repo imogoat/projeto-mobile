@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:get_it/get_it.dart';
 import 'package:imogoat/components/appBarCliente.dart';
+import 'package:imogoat/components/loading.dart';
 import 'package:imogoat/controllers/image_controller.dart';
 import 'package:imogoat/controllers/immobile_controller.dart';
 import 'package:imogoat/models/rest_client.dart';
 import 'package:imogoat/repositories/image_repository.dart';
 import 'package:imogoat/repositories/immobile_repository.dart';
 import 'package:imogoat/screens/home/home.dart';
+import 'package:imogoat/screens/home/homeOwner.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class StapeFourCreateImmobilePage extends StatefulWidget {
@@ -41,6 +43,13 @@ class _StapeFourCreateImmobilePageState extends State<StapeFourCreateImmobilePag
   }
 
   try {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          context = context;
+          return const Loading();
+        }, 
+      );
     print('Imagens selecionadas: $_selectedImages');
     print('Primeira imagem: ${_selectedImages[0]}');
 
@@ -50,7 +59,7 @@ class _StapeFourCreateImmobilePageState extends State<StapeFourCreateImmobilePag
     // Navega para a HomePage após o sucesso
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => HomePage()),
+      MaterialPageRoute(builder: (context) => HomePageOwner()),
     );
   } catch (error) {
     print('Erro ao criar imagem: $error');
