@@ -11,6 +11,13 @@ class UserRepository {
     return response["groups"].map<User>(User.fromMap).toList();
   }
 
+  Future<List<User>> buscarUsers() async {
+    final response = await _rest.get('/user');
+    return (response as List)
+        .map<User>((item) => User.fromMap(item as Map<String, dynamic>))
+        .toList();
+  }
+
   Future<bool> loginUser(String path, String email, String password) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String token;
@@ -60,6 +67,17 @@ class UserRepository {
       await _rest.put(path, {
         "role": role,
       },);
+      print('FELICIDADE');
+      return true;
+    } catch (error) {
+      print("Erro ao atualizar usuário: $error");
+      return false;
+    }
+  }
+
+  Future<bool> updateUserData(String path, User data) async {
+    try {
+      await _rest.put(path, data.toMap());
       print('FELICIDADE');
       return true;
     } catch (error) {

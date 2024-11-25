@@ -55,10 +55,10 @@ flutter_native_splash:
   android: true
 
 flutter_icons:
-  image_path: "assets/images/logo_imogoat.png"
+  image_path: "assets/images/Imogoat2.png"
   android: "launcher_icon"
   adaptive_icon_background: "#FFFFFF"
-  adaptive_icon_foreground: "assets/images/logo_imogoat.png"
+  adaptive_icon_foreground: "assets/images/Imogoat2.png"
 
 dev_dependencies:
   flutter_test:

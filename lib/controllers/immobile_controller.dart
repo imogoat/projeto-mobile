@@ -32,10 +32,10 @@ class ControllerImmobile extends ChangeNotifier {
         .where((e) => e.name.toLowerCase().contains(search.toLowerCase())).toList();
   }
 
-  Future<void> buscarImmobile() async {
+  Future<void> buscarImmobiles() async {
     try {
       loading = true;
-      _immobiles = await _repository.buscarImovel();
+      _immobiles = await _repository.buscarImmobiles();
     } finally {
       loading = false;
       notifyListeners();
@@ -47,6 +47,18 @@ class ControllerImmobile extends ChangeNotifier {
       loading = true;
       notifyListeners();
       await _repository.createImmobile(path, data);
+    } finally {
+      loading = false;
+      notifyListeners();
+    }
+  }
+
+   Future<void> updateImmobile(String path, ImmobilePost data) async {
+    try {
+      loading = true;
+      notifyListeners();
+      print('Path: $path');
+      await _repository.updateImmobile(path, data);
     } finally {
       loading = false;
       notifyListeners();

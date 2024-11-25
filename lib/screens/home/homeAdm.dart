@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:imogoat/components/appBarCliente.dart';
 import 'package:imogoat/components/drawerAdm.dart';
 import 'package:imogoat/components/navigationBarAdm.dart';
+import 'package:imogoat/screens/admin/mainHomeAdm.dart';
+import 'package:imogoat/screens/admin/userPage.dart';
 import 'package:imogoat/screens/home/mainHome.dart';
 import 'package:imogoat/screens/user/campaignPage.dart';
 import 'package:imogoat/screens/user/contactsPage.dart';
@@ -37,12 +39,6 @@ class _HomePageState extends State<HomePageAdm> {
             );
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Color(0xFF1F7C70),
-        foregroundColor: Colors.white,
-        child: const Icon(Icons.add),
-        onPressed: () {}
-      ),
       body: PageView(
             controller: _pageController,
             onPageChanged: (value) => setState(() {
@@ -50,8 +46,8 @@ class _HomePageState extends State<HomePageAdm> {
             }),
             scrollDirection: Axis.horizontal,
             children: [
-              MainHome(),
-              ContactsPage(),
+              MainHomeAdmPage(),
+              UserPage(),
             ],
           )
     );

@@ -10,6 +10,7 @@ import 'package:imogoat/repositories/favorite_repository.dart';
 import 'package:imogoat/repositories/immobile_repository.dart';
 import 'package:imogoat/screens/user/immobileDetailPage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:imogoat/styles/color_constants.dart';
 
 class MainHome extends StatefulWidget {
   const MainHome({super.key});
@@ -28,14 +29,6 @@ class _MainHomeState extends State<MainHome> {
   List<bool> isFavorited = [];
   List<Immobile> filteredImmobiles = [];
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _loadImmobiles();
-  //   _loadFavorites();
-  //   _buscarIdFavorite();
-  // }
-
   @override
   void initState() {
     super.initState();
@@ -49,26 +42,13 @@ class _MainHomeState extends State<MainHome> {
 
 
   Future<void> _loadImmobiles() async {
-    await controller.buscarImmobile();
+    await controller.buscarImmobiles();
     filteredImmobiles = controller.immobile;
     isFavorited = List.generate(controller.immobile.length, (index) => false);
     setState(() {
       _isLoading = false;
     });
   }
-
-  // Future<void> _buscarIdFavorite() async {
-  //   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-  //   String userId = sharedPreferences.getString('id').toString();
-  //   try {
-  //     await controllerFavorite.buscarFavoritos(userId);
-  //     for (var fav in controllerFavorite.favorites) {
-  //       print('ID do Favorito: ${fav.id}, ID do Imóvel: ${fav.immobileId}');
-  //     }
-  //   } catch (error) {
-  //     print('Erro ao buscar Id do favorito: $error');
-  //   }
-  // }
 
   Future<void> _loadFavorites() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -93,7 +73,7 @@ class _MainHomeState extends State<MainHome> {
     setState(() {
       _isLoading = true;
     });
-    await controller.buscarImmobile();
+    await controller.buscarImmobiles();
     setState(() {
       _isLoading = false;
     });
@@ -104,7 +84,7 @@ class _MainHomeState extends State<MainHome> {
       _isLoading = true;
     });
 
-    await controller.buscarImmobile();
+    await controller.buscarImmobiles();
 
     filteredImmobiles = controller.immobile.where((immobile) => immobile.type == type).toList();
 
@@ -247,9 +227,10 @@ class _MainHomeState extends State<MainHome> {
                                               prefixIcon: Icon(Icons.search),
                                               labelText: 'Digite sua busca',
                                               labelStyle: TextStyle(
-                                                  color: Colors.black,
+                                                  color: verde_black,
                                                   fontFamily: 'Poppins',
-                                                  fontSize: 15),
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w500),
                                               contentPadding: EdgeInsets.zero,
                                               filled: true,
                                               fillColor: Colors.transparent,

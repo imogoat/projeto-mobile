@@ -3,6 +3,7 @@ import 'package:imogoat/screens/auth/login.dart';
 import 'package:imogoat/screens/home/home.dart';
 import 'package:imogoat/screens/home/homeAdm.dart';
 import 'package:imogoat/screens/home/homeOwner.dart';
+import 'package:imogoat/styles/color_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PaginaInicial extends StatefulWidget {
@@ -67,7 +68,13 @@ class _PaginaInicial extends State<PaginaInicial> {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-        child: Text('Verificando usuário...'),
+        child: Text('Verificando usuário...',
+        style: TextStyle(
+          color: verde_black,
+          fontSize: 20,
+          fontFamily: 'Poppins',
+          fontWeight: FontWeight.bold
+        ),),
       ),
     );
   }

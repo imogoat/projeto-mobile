@@ -33,50 +33,6 @@ class DrawerAdm extends StatelessWidget {
             ),
           )
         ),
-        ListTile(
-          title: Text(
-            'Gerenciar imóveis'.toUpperCase(),
-            style: TextStyle(
-              fontSize: 16,
-              fontFamily: 'Poppins',
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF1F7C70)
-            ),
-          ),
-          trailing: const Icon(Icons.arrow_forward),
-          onTap: () {
-            Navigator.pushNamed(context, '');
-          },
-        ),
-        ListTile(
-          title: Text(
-            'Gerenciar vagas'.toUpperCase(),
-            style: TextStyle(
-              fontSize: 16,
-              fontFamily: 'Poppins',
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF1F7C70)
-            ),
-          ),
-          trailing: const Icon(Icons.arrow_forward),
-          onTap: () {
-            Navigator.pushNamed(context, '');
-          },
-        ),
-        ListTile(
-          title: Text('Gerenciar usuários'.toUpperCase(),
-          style: TextStyle(
-              fontSize: 16,
-              fontFamily: 'Poppins',
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF1F7C70)
-            ),
-          ),
-          trailing: const Icon(Icons.arrow_forward),
-          onTap: () {
-            Navigator.pushNamed(context, '');
-          },
-        ),
         const SizedBox(height: 50),
         IconButton(
             onPressed: () => {

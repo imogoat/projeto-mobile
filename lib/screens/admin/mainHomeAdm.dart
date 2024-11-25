@@ -1,32 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:imogoat/components/buttonHomeSearch.dart';
 import 'package:imogoat/controllers/immobile_controller.dart';
 import 'package:imogoat/models/immobile.dart';
-import 'package:imogoat/models/immobile_post.dart';
 import 'package:imogoat/models/rest_client.dart';
 import 'package:imogoat/repositories/immobile_repository.dart';
 import 'package:imogoat/screens/owner/flow/step_one_immobilePage.dart';
 import 'package:imogoat/screens/user/immobileDetailPage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:imogoat/styles/color_constants.dart';
 
-class OwnersPropertiesPage extends StatefulWidget {
-  const OwnersPropertiesPage({super.key});
+class MainHomeAdmPage extends StatefulWidget {
+  const MainHomeAdmPage({super.key});
 
   @override
-  State<OwnersPropertiesPage> createState() => _OwnersPropertiesPageState();
+  State<MainHomeAdmPage> createState() => _MainHomeAdmPageState();
 }
 
-class _OwnersPropertiesPageState extends State<OwnersPropertiesPage> {
+class _MainHomeAdmPageState extends State<MainHomeAdmPage> {
   final controller = ControllerImmobile(
       immobileRepository: ImmobileRepository(restClient: GetIt.I.get<RestClient>()));
   
-  bool isLoading = true;
+  bool _isLoading = true;
   List<Immobile> filteredImmobiles = [];
 
   @override
   void initState() {
     super.initState();
+    controller.buscarImmobiles();
     _loadImmobiles();
   }
 
@@ -82,25 +82,29 @@ class _OwnersPropertiesPageState extends State<OwnersPropertiesPage> {
     }
   }
 
-  Future<void> _loadImmobiles() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    String proprietaryId = sharedPreferences.getString('id').toString();
-    print('Id do proprietário: $proprietaryId');
-    
-    await controller.buscarImmobiles();
-    filteredImmobiles = controller.immobile.where((immobile) {
-      return immobile.proprietaryId.toString() == proprietaryId;
-    }).toList();
+  // Future<void> _searchImmobiles() async {
+  //   setState(() {
+  //     _isLoading = true;
+  //   });
+  //   await controller.buscarImmobiles();
+  //   setState(() {
+  //     filteredImmobiles = controller.immobile;
+  //     _isLoading = false;
+  //   });
+  // }
 
+  Future<void> _loadImmobiles() async {
+    await controller.buscarImmobiles();
+    filteredImmobiles = controller.immobile;
     setState(() {
-      isLoading = false;
+      _isLoading = false;
     });
   }
   
   Future<void> removeImmobile(String immobileId) async {
     try {
       await controller.deleteImmobile(immobileId);
-      await _loadImmobiles(); // Recarrega a lista após exclusão
+      await _loadImmobiles();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Imóvel excluído com sucesso")),
       );
@@ -118,7 +122,7 @@ class _OwnersPropertiesPageState extends State<OwnersPropertiesPage> {
       appBar: AppBar(
         backgroundColor: const Color(0xFFF0F2F5),
         title: const Text(
-          'Imóveis do proprietário',
+          'Todos os imóveis',
           style: TextStyle(
             color: Color(0xFF2E3C4E),
           ),
@@ -132,8 +136,8 @@ class _OwnersPropertiesPageState extends State<OwnersPropertiesPage> {
           Navigator.push(context, MaterialPageRoute(builder: (context) => StapeOneCreateImmobilePage()));
         }
       ),
-      backgroundColor: const Color(0xFFF0F2F5),
-      body: isLoading
+      backgroundColor: background,
+      body: _isLoading
           ? const Center(
               child: CircularProgressIndicator(
                 color: Color(0xFF265C5F),
@@ -156,7 +160,7 @@ class _OwnersPropertiesPageState extends State<OwnersPropertiesPage> {
                       children: [
                         const SizedBox(height: 10),
                         const Text(
-                          'Sua lista de imóveis...',
+                          'Lista de imóveis...',
                           style: TextStyle(
                             fontFamily: 'Poppins',
                             fontSize: 25,
@@ -165,15 +169,7 @@ class _OwnersPropertiesPageState extends State<OwnersPropertiesPage> {
                           ),
                         ),
                         const Text(
-                          'Seus imóveis ficam aqui,',
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontSize: 18,
-                            color: Color(0xFF2E3C4E),
-                          ),
-                        ),
-                        const Text(
-                          'para você ver sempre que quiser.',
+                          'Todos os imóveis ficam aqui.',
                           style: TextStyle(
                             fontFamily: 'Poppins',
                             fontSize: 18,
@@ -185,7 +181,45 @@ class _OwnersPropertiesPageState extends State<OwnersPropertiesPage> {
                           width: 350,
                           child: Divider(),
                         ),
-                        const SizedBox(height: 50),
+                        // Padding(
+                        //   padding: const EdgeInsets.symmetric(horizontal: 20),
+                        //   child: Row(
+                        //     children: [
+                        //       Expanded(
+                        //         child: TextFormField(
+                        //           cursorColor: Colors.black,
+                        //           onChanged: (value) {
+                        //             setState(() {
+                        //              controller.changeSearch(value);
+                        //             });
+                        //           },
+                        //           decoration: const InputDecoration(
+                        //             prefixIcon: Icon(Icons.search),
+                        //             labelText: 'Digite sua busca',
+                        //             labelStyle: TextStyle(
+                        //               color: verde_black,
+                        //               fontFamily: 'Poppins',
+                        //               fontSize: 16,
+                        //               fontWeight: FontWeight.w500
+                        //             ),
+                        //             contentPadding: EdgeInsets.zero,
+                        //             filled: true,
+                        //             fillColor: Colors.transparent,
+                        //             border: InputBorder.none,
+                        //           ),
+                        //         ),
+                        //       ),
+                        //       const SizedBox(width: 10),
+                        //       CustomButtonSearch(
+                        //         text: 'Pesquisar', 
+                        //         onPressed: () {
+                        //           _searchImmobiles();
+                        //         }
+                        //       ),
+                        //     ],
+                        //   ),
+                        // ),
+                        const SizedBox(height: 30),
                         SizedBox(
                           height: (filteredImmobiles.length / 2).ceil() * 200,
                           width: MediaQuery.of(context).size.width,

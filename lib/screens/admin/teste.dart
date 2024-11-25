@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
+import 'package:imogoat/components/buttonHomeSearch.dart';
 import 'package:imogoat/controllers/immobile_controller.dart';
 import 'package:imogoat/models/immobile.dart';
-import 'package:imogoat/models/immobile_post.dart';
 import 'package:imogoat/models/rest_client.dart';
 import 'package:imogoat/repositories/immobile_repository.dart';
 import 'package:imogoat/screens/owner/flow/step_one_immobilePage.dart';
 import 'package:imogoat/screens/user/immobileDetailPage.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:imogoat/styles/color_constants.dart';
 
-class OwnersPropertiesPage extends StatefulWidget {
-  const OwnersPropertiesPage({super.key});
+class MainHomeAdmPage extends StatefulWidget {
+  const MainHomeAdmPage({super.key});
 
   @override
-  State<OwnersPropertiesPage> createState() => _OwnersPropertiesPageState();
+  State<MainHomeAdmPage> createState() => _MainHomeAdmPageState();
 }
 
-class _OwnersPropertiesPageState extends State<OwnersPropertiesPage> {
+class _MainHomeAdmPageState extends State<MainHomeAdmPage> {
   final controller = ControllerImmobile(
       immobileRepository: ImmobileRepository(restClient: GetIt.I.get<RestClient>()));
   
-  bool isLoading = true;
+  bool _isLoading = true;
   List<Immobile> filteredImmobiles = [];
 
   @override
@@ -29,26 +29,47 @@ class _OwnersPropertiesPageState extends State<OwnersPropertiesPage> {
     _loadImmobiles();
   }
 
-  // Função de diálogo de confirmação
   Future<void> confirmDelete(String immobileId) async {
     final confirmed = await showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Confirmar exclusão"),
-          content: Text("Tem certeza de que deseja excluir este imóvel?"),
+          title: Text('Confirmar exclusão',
+          style: TextStyle(
+            color: verde_medio,
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+            fontFamily: 'Poppins'
+          ),),
+          content: Text('Tem certeza de que deseja excluir este imóvel?',
+          style: TextStyle(
+            color: verde_black,
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+            fontFamily: 'Poppins'
+          ),),
           actions: <Widget>[
             TextButton(
               onPressed: () {
-                Navigator.pop(context, false); // Cancela a ação
+                Navigator.pop(context, false);
               },
-              child: Text("Cancelar"),
+              child: Text('Cancelar',
+              style: TextStyle(
+                color: Colors.grey,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Poppins'
+              ),),
             ),
             TextButton(
               onPressed: () {
-                Navigator.pop(context, true); // Confirma a exclusão
+                Navigator.pop(context, true);
               },
-              child: Text("Excluir"),
+              child: Text('Excluir',
+              style: TextStyle(
+                color: Colors.red,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Poppins'
+              ),),
             ),
           ],
         );
@@ -60,26 +81,28 @@ class _OwnersPropertiesPageState extends State<OwnersPropertiesPage> {
     }
   }
 
-  Future<void> _loadImmobiles() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    String proprietaryId = sharedPreferences.getString('id').toString();
-    print('Id do proprietário: $proprietaryId');
-    
-    await controller.buscarImmobile();
-    filteredImmobiles = controller.immobile.where((immobile) {
-      return immobile.proprietaryId.toString() == proprietaryId;
-    }).toList();
-
+  Future<void> _searchImmobiles() async {
     setState(() {
-      isLoading = false;
+      _isLoading = true;
+    });
+    await controller.buscarImmobiles();
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
+  Future<void> _loadImmobiles() async {
+    await controller.buscarImmobiles();
+    filteredImmobiles = controller.immobile;
+    setState(() {
+      _isLoading = false;
     });
   }
   
-  // Função para remover o imóvel
   Future<void> removeImmobile(String immobileId) async {
     try {
       await controller.deleteImmobile(immobileId);
-      await _loadImmobiles(); // Recarrega a lista após exclusão
+      await _loadImmobiles();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text("Imóvel excluído com sucesso")),
       );
@@ -93,49 +116,19 @@ class _OwnersPropertiesPageState extends State<OwnersPropertiesPage> {
       
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xFFF0F2F5),
-        title: const Text(
-          'Imóveis do proprietário',
-          style: TextStyle(
-            color: Color(0xFF2E3C4E),
-          ),
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Color(0xFF1F7C70),
-        foregroundColor: Colors.white,
-        child: const Icon(Icons.add),
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => StapeOneCreateImmobilePage()));
-        }
-      ),
-      backgroundColor: const Color(0xFFF0F2F5),
-      body: isLoading
-          ? const Center(
-              child: CircularProgressIndicator(
-                color: Color(0xFF265C5F),
-              ),
-            )
-          : filteredImmobiles.isEmpty
-              ? const Center(
-                  child: Text(
-                    'Nenhum imóvel encontrado.',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.red,
-                    ),
-                  ),
-                )
-              : SingleChildScrollView(
-                  child: Center(
-                    child: Column(
-                      children: [
-                        const SizedBox(height: 10),
+    return _isLoading
+    ? Center(
+            child: CircularProgressIndicator(
+              color: const Color(0xFF265C5F),
+            ),
+          )
+          : SingleChildScrollView(
+            child: Column(
+               crossAxisAlignment: CrossAxisAlignment.center,
+               children: [
+                SizedBox(height: 10),
                         const Text(
-                          'Sua lista de imóveis...',
+                          'Lista de imóveis...',
                           style: TextStyle(
                             fontFamily: 'Poppins',
                             fontSize: 25,
@@ -144,15 +137,7 @@ class _OwnersPropertiesPageState extends State<OwnersPropertiesPage> {
                           ),
                         ),
                         const Text(
-                          'Seus imóveis ficam aqui,',
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontSize: 18,
-                            color: Color(0xFF2E3C4E),
-                          ),
-                        ),
-                        const Text(
-                          'para você ver sempre que quiser.',
+                          'Todos os imóveis ficam aqui.',
                           style: TextStyle(
                             fontFamily: 'Poppins',
                             fontSize: 18,
@@ -164,8 +149,57 @@ class _OwnersPropertiesPageState extends State<OwnersPropertiesPage> {
                           width: 350,
                           child: Divider(),
                         ),
-                        const SizedBox(height: 50),
-                        SizedBox(
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: TextFormField(
+                                  cursorColor: Colors.black,
+                                  onChanged: (value) {
+                                    setState(() {
+                                     controller.changeSearch(value);
+                                    });
+                                  },
+                                  decoration: const InputDecoration(
+                                    prefixIcon: Icon(Icons.search),
+                                    labelText: 'Digite sua busca',
+                                    labelStyle: TextStyle(
+                                      color: verde_black,
+                                      fontFamily: 'Poppins',
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500
+                                    ),
+                                    contentPadding: EdgeInsets.zero,
+                                    filled: true,
+                                    fillColor: Colors.transparent,
+                                    border: InputBorder.none,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 10),
+                              CustomButtonSearch(
+                                text: 'Pesquisar', 
+                                onPressed: () {
+                                  _searchImmobiles();
+                                }
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 10,),
+                        filteredImmobiles.isEmpty 
+                        ? const Center(
+                        child: Text(
+                          "Nenhum imóvel encontrado",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.red,
+                          ),
+                        ),
+                      )
+                        : SizedBox(
                           height: (filteredImmobiles.length / 2).ceil() * 200,
                           width: MediaQuery.of(context).size.width,
                           child: GridView.builder(
@@ -220,7 +254,7 @@ class _OwnersPropertiesPageState extends State<OwnersPropertiesPage> {
                                             const Spacer(),
                                               IconButton(
                                                 onPressed: () {
-                                                  final immobileId = controller.immobile[index].id;
+                                                  final immobileId = immobile.id; // Mudança aqui
                                                   print('Id do imóvel: $immobileId');
                                                   confirmDelete(immobileId.toString());
                                                 },
@@ -258,10 +292,8 @@ class _OwnersPropertiesPageState extends State<OwnersPropertiesPage> {
                             },
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                ),
-    );
+               ],
+            ),
+          );
   }
 }

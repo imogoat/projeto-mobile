@@ -9,8 +9,8 @@ class AppBarCliente extends StatelessWidget implements PreferredSizeWidget {
         centerTitle: true,
         backgroundColor: Color(0xFF1F7C70),
         actions: [
-          Image(image: AssetImage("assets/images/logo-teste.png"),
-          height: 35,
+          Image(image: AssetImage("assets/images/logo_nova.png"),
+          height: 50,
           ),
         ],
       );

@@ -29,6 +29,16 @@ class ControllerUser extends ChangeNotifier {
         .where((e) => e.username.toLowerCase().contains(search.toLowerCase())).toList();
   }
 
+  Future<void> buscarUsers() async {
+    try {
+      loading = true;
+      _users = await _repository.buscarUsers();
+    } finally {
+      loading = false;
+      notifyListeners();
+    }
+  }
+
   Future<bool> login(String path, String email, String password) async {
     try {
       loading = true;
@@ -58,6 +68,19 @@ class ControllerUser extends ChangeNotifier {
       loading = true;
       notifyListeners();
       result = await _repository.updateUser(path, role);
+      print('Result - $result');
+    } finally {
+      loading = false;
+      notifyListeners();
+      return result;
+    }
+  }
+
+    Future<bool> updateUserDate(String path, User data) async {
+    try {
+      loading = true;
+      notifyListeners();
+      result = await _repository.updateUserData(path, data);
       print('Result - $result');
     } finally {
       loading = false;

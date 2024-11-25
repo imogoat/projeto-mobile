@@ -6,7 +6,7 @@ class ImmobileRepository {
   final RestClient _rest;
   ImmobileRepository({required RestClient restClient}) : _rest = restClient;
 
- Future<List<Immobile>> buscarImovel() async {
+ Future<List<Immobile>> buscarImmobiles() async {
     final response = await _rest.get('/immobile');
     return (response as List)
         .map<Immobile>((item) => Immobile.fromMap(item as Map<String, dynamic>))
@@ -18,18 +18,25 @@ class ImmobileRepository {
       await _rest.post(path, data.toMap());
       return true;
     } catch (error) {
-      print('Erro ao criar imóvel: $error');
+      print('Erro ao atualizar imóvel: $error');
+      return false;
+    }
+  }
+
+  Future<bool> updateImmobile(String path, ImmobilePost data) async {
+    try {
+      await _rest.put(path, data.toMap());
+      return true;
+    } catch (error) {
+      print('Erro ao atualizar imóvel: $error');
       return false;
     }
   }
 
   Future<void> deleteImmobile(String immobileId) async {
     try {
-      print('Entrou aqui 1');
-      print('Id do imóvel 2: $immobileId');
       await _rest.delete('https://imogoat-api.onrender.com/delete-immobile', immobileId);
     } catch (error) {
-      print('entrou aqui 2');
       print('Erro ao deletar imóvel: $error');
       rethrow;
     }

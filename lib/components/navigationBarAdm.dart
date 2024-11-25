@@ -29,7 +29,7 @@ class _CustomCurvedNavigationBarState extends State<CustomCurvedNavigationBarAdm
       index: widget.currentIndex,
       items: const <Widget>[
         Icon(Icons.home, size: 30),
-        Icon(Icons.contacts, size: 30),
+        Icon(Icons.person, size: 30),
       ],
       onTap: widget.onTap, // Chama a função onTap passada como argumento
     );

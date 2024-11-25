@@ -46,6 +46,8 @@ class _LoginPageState extends State<LoginPage> {
       'password': password,
     });
 
+    Navigator.pop(context);
+
     token = response['token'];
     id_user = response['id'];
     role = response['role'];
@@ -141,7 +143,7 @@ class _LoginPageState extends State<LoginPage> {
                       width: 365,
                       child: RememberMeRow(
                         onForgotPasswordTap: () {
-                          Navigator.pushNamed(context, '/signup');
+                          Navigator.pushNamed(context, '/recovery');
                         }
                       ),
                     ),

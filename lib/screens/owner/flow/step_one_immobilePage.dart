@@ -116,7 +116,7 @@ class _CreateImmobilePageState extends State<StapeOneCreateImmobilePage> {
                     return null;
                   }),
                   const SizedBox(height: 10),
-                  TextInput(controller: _type, labelText: 'Tipo do imóvel', hintText: 'Ex: apartamento/casa/quitinete', keyboardType: TextInputType.name, 
+                  TextInput(controller: _type, labelText: 'Tipo do imóvel', hintText: 'Ex: apartamento/casa/quitinete', keyboardType: TextInputType.name,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'O campo não pode ser vazio';

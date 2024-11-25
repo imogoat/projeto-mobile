@@ -18,30 +18,8 @@ class _RememberMeRowState extends State<RememberMeRow> {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        InkWell(
-          onTap: () {
-            setState(() {
-              isRemembered = !isRemembered;
-            });
-          },
-          child: Row(
-            children: [
-              Icon(
-                isRemembered ? Icons.check_box : Icons.check_box_outline_blank,
-                color: isRemembered ? Colors.blue : Colors.grey,
-              ),
-              const SizedBox(width: 8), // Espaço entre o ícone e o texto
-              const Text(
-                'Lembrar-me',
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                ),
-              ),
-            ],
-          ),
-        ),
         InkWell(
           onTap: widget.onForgotPasswordTap,
           child: const Text(

@@ -201,7 +201,7 @@ Future<void> _showDialog(BuildContext context) async {
                         if (_formKey.currentState!.validate()) {
                           SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
                           String userId = sharedPreferences.getString('id').toString();
-                          immobile_post = ImmobilePost(name: immobile_post_aux.name, number: immobile_post_aux.number, type: immobile_post_aux.type, location: immobile_post_aux.location, bairro: immobile_post_aux.bairro, city: immobile_post_aux.city, reference: immobile_post_aux.reference, value: immobile_post_aux.value, numberOfBedrooms: int.parse(_numberOfBedrooms.text), numberOfBathrooms: int.parse(_numberOfBathrooms.text), garagem: _hasGarage, description: _description.text, proprietaryId: int.parse(userId));
+                          immobile_post = ImmobilePost(name: immobile_post_aux.name, number: immobile_post_aux.number, type: immobile_post_aux.type, location: immobile_post_aux.location, bairro: immobile_post_aux.bairro, city: immobile_post_aux.city, reference: immobile_post_aux.reference, value: double.parse(_valueImmobile.text), numberOfBedrooms: int.parse(_numberOfBedrooms.text), numberOfBathrooms: int.parse(_numberOfBathrooms.text), garagem: _hasGarage, description: _description.text, proprietaryId: int.parse(userId));
                           print('Immobile: ' + immobile_post.toMap().toString());
                           createImmobile(immobile_post);
                         } else {

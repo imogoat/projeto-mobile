@@ -45,7 +45,7 @@ class _ContactsPageState extends State<ContactsPage> {
                 ),
                 SizedBox(height: 30),
                 Text(
-                  'O nosso aplicativo de aluguel de imóveis é uma plataforma completa e eficiente para facilitar o processo de busca e locação de imóveis para inquilinos. Nosso site torna o processo de aluguel mais fácil e eficiente para os inquilinos, proporcionando uma experiência fluida e direta.',
+                  'O nosso aplicativo de aluguel de imóveis é uma plataforma completa e eficiente para facilitar o processo de busca e locação de imóveis para inquilinos. Nossa plataforma torna o processo de aluguel mais fácil e eficiente para os inquilinos, proporcionando uma experiência fluida e direta.',
                   textAlign: TextAlign.justify,
                   style: TextStyle(
                     color: Colors.black,

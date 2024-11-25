@@ -77,7 +77,7 @@ class _CampaignPageState extends State<CampaignPage> {
           style: TextStyle(color: Color(0xFF2E3C4E)),
         ),
       ),
-      backgroundColor: Color(0xFFF0F2F5),
+      backgroundColor: background,
       body: SingleChildScrollView(
         child: Center(
           child: Padding(

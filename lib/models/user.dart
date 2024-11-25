@@ -1,18 +1,18 @@
 class User {
-  int id;
+  int? id;
   String username;
   String email;
-  String password;
+  String? password;
   String number;
-  String role;
+  String? role;
 
   User({
-    required this.id,
+    this.id,
     required this.username,
     required this.email,
-    required this.password,
+    this.password,
     required this.number,
-    required this.role,
+    this.role,
   });
   
   factory User.fromMap(map) {
@@ -23,5 +23,13 @@ class User {
       password: map['password'] ?? 'Não informado', 
       number: map['number'] ?? 'Não informado', 
       role: map['role'] ?? 'user');
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'username': username,
+      'email': email,
+      'number': number
+    };
   }
 }

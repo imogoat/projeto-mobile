@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:imogoat/components/loading.dart';
+import 'package:imogoat/controllers/immobile_controller.dart';
+import 'package:imogoat/models/immobile_post.dart';
+import 'package:imogoat/models/rest_client.dart';
+import 'package:imogoat/repositories/immobile_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:imogoat/components/appBarCliente.dart';
 import 'package:imogoat/models/immobile.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:imogoat/styles/color_constants.dart';
+
 
 class ImmobileDetailPage extends StatefulWidget {
   final Immobile immobile;
@@ -15,6 +23,9 @@ class ImmobileDetailPage extends StatefulWidget {
 
 class _ImmobileDetailPageState extends State<ImmobileDetailPage> {
   String role = '';
+
+  final controller = ControllerImmobile(
+      immobileRepository: ImmobileRepository(restClient: GetIt.I.get<RestClient>()));
 
   @override
   void initState() {
@@ -31,16 +42,158 @@ class _ImmobileDetailPageState extends State<ImmobileDetailPage> {
     });
   }
 
+  Future<void> _showEditDialog(BuildContext context) async {
+    final _formKey = GlobalKey<FormState>();
+
+    final controllers = {
+      'name': TextEditingController(text: widget.immobile.name),
+      'number': TextEditingController(text: widget.immobile.number.toString()),
+      'type': TextEditingController(text: widget.immobile.type),
+      'location': TextEditingController(text: widget.immobile.location),
+      'bairro': TextEditingController(text: widget.immobile.bairro),
+      'city': TextEditingController(text: widget.immobile.city),
+      'reference': TextEditingController(text: widget.immobile.reference),
+      'value': TextEditingController(text: widget.immobile.value.toString()),
+      'bedrooms': TextEditingController(text: widget.immobile.numberOfBedrooms.toString()),
+      'bathrooms': TextEditingController(text: widget.immobile.numberOfBathrooms.toString()),
+      'description': TextEditingController(text: widget.immobile.description),
+    };
+
+    bool _hasGarage = widget.immobile.garagem;
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Atualizar Imóvel',
+          style: TextStyle(
+            color: verde_medio,
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+            fontFamily: 'Poppins'
+          ),),
+          content: SingleChildScrollView(
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  for (var field in controllers.entries)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: TextFormField(
+                        controller: field.value,
+                        decoration: InputDecoration(labelText: field.key),
+                      ),
+                    ),
+                  StatefulBuilder(
+                    builder: (context, setState) => Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text('Possui Garagem?', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFF1F7C70))),
+                        Switch(
+                          value: _hasGarage,
+                          activeColor: const Color(0xFF1F7C70),
+                          inactiveThumbColor: Colors.grey,
+                          inactiveTrackColor: Colors.grey.shade300,
+                          onChanged: (value) {
+                            setState(() {
+                              _hasGarage = value;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          actions: [
+            TextButton(
+              child: const Text('Cancelar',
+              style: TextStyle(
+                color: Colors.grey,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Poppins'
+              ),),
+              onPressed: () {
+                if (Navigator.canPop(context)) {
+                  Navigator.pop(context);
+                }
+              },
+            ),
+            TextButton(
+              child: const Text('Atualizar',
+              style: TextStyle(
+                color: Colors.green,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Poppins'
+              ),),
+              onPressed: () async {
+                if (_formKey.currentState!.validate()) {
+                  try {
+                    final immobilePost = ImmobilePost(
+                      name: controllers['name']!.text,
+                      number: int.parse(controllers['number']!.text),
+                      type: controllers['type']!.text,
+                      location: controllers['location']!.text,
+                      bairro: controllers['bairro']!.text,
+                      city: controllers['city']!.text,
+                      reference: controllers['reference']!.text,
+                      value: double.parse(controllers['value']!.text),
+                      numberOfBedrooms: int.parse(controllers['bedrooms']!.text),
+                      numberOfBathrooms: int.parse(controllers['bathrooms']!.text),
+                      garagem: _hasGarage,
+                      description: controllers['description']!.text,
+                      proprietaryId: int.parse((await SharedPreferences.getInstance()).getString('id')!),
+                    );
+
+                    await updateImmobile(immobilePost);
+
+                    if (mounted && Navigator.canPop(context)) {
+                      Navigator.pop(context);
+                    }
+                  } catch (e) {
+                    print('Erro ao atualizar imóvel: $e');
+                    if (mounted && Navigator.canPop(context)) {
+                      Navigator.pop(context);
+                    }
+                  }
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
+  Future<void> updateImmobile(ImmobilePost data) async {
+    final String immobileId = widget.immobile.id.toString();
+    try {
+      showDialog(context: context, builder: (context) => const Loading());
+      await controller.updateImmobile('/alter-immobile/$immobileId', data);
+      Navigator.pushNamedAndRemoveUntil(context, '/homeOwner', (route) => false);
+    } catch (error) {
+      print('Erro ao atualizar o imóvel: $error');
+      Navigator.pop(context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarCliente(),
-      floatingActionButton: role == 'owner' 
+      floatingActionButton: role == 'owner' || role == 'admin'
           ? FloatingActionButton(
               backgroundColor: Color(0xFFFFC107),
               foregroundColor: Colors.white,
               child: const Icon(Icons.edit),
-              onPressed: () {},
+              onPressed: () {
+                _showEditDialog(context);
+              },
             )
           : null,
       body: SingleChildScrollView(

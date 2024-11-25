@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:imogoat/core/rest_client/service_locator.dart';
+import 'package:imogoat/screens/auth/recovery.dart';
 import 'package:imogoat/screens/home/home.dart';
 import 'package:imogoat/screens/auth/login.dart';
 import 'package:imogoat/screens/auth/sign.dart';
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
       routes: {
         "/": (context) => const LoginPage(),
         "/signup": (context) => const SignUpPage(),
+        "/recovery": (context) => const RecoveryPage(),
         "/home": (context) => const HomePage(),
         "/homeOwner": (context) => const HomePageOwner(),
         "/homeAdm": (context) => const HomePageAdm(),
