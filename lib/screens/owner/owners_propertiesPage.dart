@@ -116,6 +116,7 @@ class _OwnersPropertiesPageState extends State<OwnersPropertiesPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: Icon(Icons.circle_outlined),
         backgroundColor: const Color(0xFFF0F2F5),
         title: const Text(
           'Imóveis do proprietário',

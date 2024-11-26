@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:imogoat/core/rest_client/service_locator.dart';
+import 'package:imogoat/screens/admin/userPage.dart';
 import 'package:imogoat/screens/auth/recovery.dart';
 import 'package:imogoat/screens/home/home.dart';
 import 'package:imogoat/screens/auth/login.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         "/initial": (context) => const PaginaInicial(),
         "/step_two": (context) => const StepTwoCreateImmobilePage(),
         "/step_three": (context) => const StepThreeCreateImmobilePage(),
+        "/user_page": (context) => const UserPage(),
       },
     );
   }

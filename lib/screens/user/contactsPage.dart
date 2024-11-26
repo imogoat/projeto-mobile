@@ -12,6 +12,7 @@ class _ContactsPageState extends State<ContactsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: Icon(Icons.circle_outlined),
         backgroundColor: Color(0xFFF0F2F5),
         title: Text(
           'Contato',

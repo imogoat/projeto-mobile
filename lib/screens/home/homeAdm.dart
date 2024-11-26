@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:imogoat/components/appBarCliente.dart';
-import 'package:imogoat/components/drawerAdm.dart';
+// import 'package:imogoat/components/drawerAdm.dart';
 import 'package:imogoat/components/navigationBarAdm.dart';
 import 'package:imogoat/screens/admin/mainHomeAdm.dart';
 import 'package:imogoat/screens/admin/userPage.dart';
-import 'package:imogoat/screens/home/mainHome.dart';
-import 'package:imogoat/screens/user/campaignPage.dart';
-import 'package:imogoat/screens/user/contactsPage.dart';
 
 
 class HomePageAdm extends StatefulWidget {
@@ -25,7 +22,7 @@ class _HomePageState extends State<HomePageAdm> {
     return Scaffold(
       backgroundColor: const Color(0xFFF0F2F5),
       appBar: AppBarCliente(),
-      drawer: DrawerAdm(),
+      // drawer: DrawerAdm(),
       bottomNavigationBar: CustomCurvedNavigationBarAdm(
         currentIndex: _page,
         onTap: (index) {

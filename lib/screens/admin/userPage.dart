@@ -5,6 +5,7 @@ import 'package:imogoat/controllers/user_controller.dart';
 import 'package:imogoat/models/rest_client.dart';
 import 'package:imogoat/models/user.dart';
 import 'package:imogoat/repositories/user_repository.dart';
+import 'package:imogoat/screens/admin/createUser.dart';
 import 'package:imogoat/screens/admin/userDetailPage.dart';
 import 'package:imogoat/styles/color_constants.dart';
 
@@ -69,6 +70,7 @@ class _UserPageState extends State<UserPage> {
 
         return Scaffold(
           appBar: AppBar(
+            leading: Icon(Icons.circle_outlined),
             backgroundColor: const Color(0xFFF0F2F5),
             title: const Text(
               'Usuários do Sistema',
@@ -128,7 +130,7 @@ class _UserPageState extends State<UserPage> {
             backgroundColor: verde_medio,
             foregroundColor: Colors.white,
             onPressed: () {
-              // Ação ao pressionar o botão de adicionar
+              Navigator.push(context, MaterialPageRoute(builder: (context) => CreateUserPage()));
             },
             child: const Icon(Icons.add),
           ),
