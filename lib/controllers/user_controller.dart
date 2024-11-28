@@ -51,6 +51,30 @@ class ControllerUser extends ChangeNotifier {
     }
   }
 
+  Future<bool> sendEmail(String path, String email) async {
+    try {
+      loading = true;
+      notifyListeners();
+      result = await _repository.sendEmail(path, email);
+    } finally {
+      loading = false;
+      notifyListeners();
+      return result;
+    }
+  }
+
+  Future<bool> resetPassword(String path, String token, String password) async {
+    try {
+      loading = true;
+      notifyListeners();
+      result = await _repository.resetPassword(path, token, password);
+    } finally {
+      loading = false;
+      notifyListeners();
+      return result;
+    }
+  }
+
   Future<bool> signUpUser(String path, String username, String email, String password, String number, String role) async {
     try {
       loading = true;

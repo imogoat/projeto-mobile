@@ -51,7 +51,7 @@ class _CampaignPageState extends State<CampaignPage> {
             TextButton(
               child: const Text('OK', 
               style: TextStyle(
-                color: Color(0xFF1F7C70),
+                color: verde_medio,
                 fontWeight: FontWeight.bold,
                 // fontSize: 22,
                 fontFamily: 'Poppins',
@@ -109,7 +109,7 @@ class _CampaignPageState extends State<CampaignPage> {
                   'O que você gostaria de anunciar hoje?',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: Color(0xFF1F7C70),
+                    color: verde_medio,
                     fontWeight: FontWeight.bold,
                     fontSize: 22,
                     fontFamily: 'Poppins',

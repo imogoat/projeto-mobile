@@ -138,7 +138,7 @@ class _MainHomeState extends State<MainHome> {
     return _isLoading
         ? Center(
             child: CircularProgressIndicator(
-              color: const Color(0xFF265C5F),
+              color: verde_escuro,
             ),
           )
         : SingleChildScrollView(

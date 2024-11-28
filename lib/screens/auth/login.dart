@@ -64,6 +64,7 @@ class _LoginPageState extends State<LoginPage> {
     }
     
     } catch (error) {
+      Navigator.pop(context);
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -131,7 +132,7 @@ class _LoginPageState extends State<LoginPage> {
                   key: _formKey,
                   child: Column(
                   children: [
-                    TextInput(controller: _email, labelText: 'Email', hintText: 'exemplo@gmail.com'),
+                    TextInput(controller: _email, labelText: 'Email', hintText: 'exemplo@gmail.com', keyboardType: TextInputType.emailAddress),
                     SizedBox(
                       height: 20,
                     ),

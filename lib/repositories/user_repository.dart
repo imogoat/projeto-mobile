@@ -43,8 +43,8 @@ class UserRepository {
 
   Future<bool> signUpUser(String path, String username, String email, String password, String number, String role) async {
 
-    print('Nome: $username - Email $email - Password $password - Número $number - Role $role');
-    print(path);
+    // print('Nome: $username - Email $email - Password $password - Número $number - Role $role');
+    // print(path);
 
     try {
       await _rest.post(path, {
@@ -58,6 +58,32 @@ class UserRepository {
       return true;
     } catch (error) {
       print("Erro ao criar usuário: $error");
+      return false;
+    }
+  }
+
+  Future<bool> resetPassword(String path, String token, String password) async {
+    try {
+      await _rest.post(path, {
+        "token": token,
+        "novaSenha": password,
+      });
+      
+      return true;
+    } catch (error) {
+      print("Erro ao redefinir senha: $error");
+      return false;
+    }
+  }
+
+  Future<bool> sendEmail(String path, String email) async {
+    try {
+      await _rest.post(path, {
+        "email": email
+      });
+      return true;
+    } catch (error) {
+      print("Erro ao enviar email: $error");
       return false;
     }
   }

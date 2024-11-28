@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:imogoat/core/rest_client/service_locator.dart';
 import 'package:imogoat/screens/admin/userPage.dart';
 import 'package:imogoat/screens/auth/recovery.dart';
+import 'package:imogoat/screens/auth/resetPassword.dart';
 import 'package:imogoat/screens/home/home.dart';
 import 'package:imogoat/screens/auth/login.dart';
 import 'package:imogoat/screens/auth/sign.dart';
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
         "/step_two": (context) => const StepTwoCreateImmobilePage(),
         "/step_three": (context) => const StepThreeCreateImmobilePage(),
         "/user_page": (context) => const UserPage(),
+        "/reset_password": (context) => const ResetPasswordPage(),
       },
     );
   }

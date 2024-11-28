@@ -26,7 +26,6 @@ class _MainHomeAdmPageState extends State<MainHomeAdmPage> {
   @override
   void initState() {
     super.initState();
-    controller.buscarImmobiles();
     _loadImmobiles();
   }
 
@@ -82,16 +81,15 @@ class _MainHomeAdmPageState extends State<MainHomeAdmPage> {
     }
   }
 
-  // Future<void> _searchImmobiles() async {
-  //   setState(() {
-  //     _isLoading = true;
-  //   });
-  //   await controller.buscarImmobiles();
-  //   setState(() {
-  //     filteredImmobiles = controller.immobile;
-  //     _isLoading = false;
-  //   });
-  // }
+  Future<void> _searchImmobiles() async {
+    setState(() {
+      _isLoading = true;
+    });
+    await controller.buscarImmobiles();
+    setState(() {
+      _isLoading = false;
+    });
+  }
 
   Future<void> _loadImmobiles() async {
     await controller.buscarImmobiles();
@@ -139,23 +137,12 @@ class _MainHomeAdmPageState extends State<MainHomeAdmPage> {
       ),
       backgroundColor: background,
       body: _isLoading
-          ? const Center(
+          ? Center(
               child: CircularProgressIndicator(
                 color: Color(0xFF265C5F),
               ),
             )
-          : filteredImmobiles.isEmpty
-              ? const Center(
-                  child: Text(
-                    'Nenhum imóvel encontrado.',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.red,
-                    ),
-                  ),
-                )
-              : SingleChildScrollView(
+            : SingleChildScrollView(
                   child: Center(
                     child: Column(
                       children: [
@@ -182,137 +169,152 @@ class _MainHomeAdmPageState extends State<MainHomeAdmPage> {
                           width: 350,
                           child: Divider(),
                         ),
-                        // Padding(
-                        //   padding: const EdgeInsets.symmetric(horizontal: 20),
-                        //   child: Row(
-                        //     children: [
-                        //       Expanded(
-                        //         child: TextFormField(
-                        //           cursorColor: Colors.black,
-                        //           onChanged: (value) {
-                        //             setState(() {
-                        //              controller.changeSearch(value);
-                        //             });
-                        //           },
-                        //           decoration: const InputDecoration(
-                        //             prefixIcon: Icon(Icons.search),
-                        //             labelText: 'Digite sua busca',
-                        //             labelStyle: TextStyle(
-                        //               color: verde_black,
-                        //               fontFamily: 'Poppins',
-                        //               fontSize: 16,
-                        //               fontWeight: FontWeight.w500
-                        //             ),
-                        //             contentPadding: EdgeInsets.zero,
-                        //             filled: true,
-                        //             fillColor: Colors.transparent,
-                        //             border: InputBorder.none,
-                        //           ),
-                        //         ),
-                        //       ),
-                        //       const SizedBox(width: 10),
-                        //       CustomButtonSearch(
-                        //         text: 'Pesquisar', 
-                        //         onPressed: () {
-                        //           _searchImmobiles();
-                        //         }
-                        //       ),
-                        //     ],
-                        //   ),
-                        // ),
-                        const SizedBox(height: 30),
-                        SizedBox(
-                          height: (filteredImmobiles.length / 2).ceil() * 200,
-                          width: MediaQuery.of(context).size.width,
-                          child: GridView.builder(
-                            physics: const NeverScrollableScrollPhysics(),
-                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 10,
-                              mainAxisSpacing: 10,
-                              childAspectRatio: 1 / 1,
-                            ),
-                            itemCount: filteredImmobiles.length,
-                            itemBuilder: (context, index) {
-                              final immobile = filteredImmobiles[index];
-                              return GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => ImmobileDetailPage(immobile: immobile),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: TextFormField(
+                                  cursorColor: Colors.black,
+                                  onChanged: (value) {
+                                    setState(() {
+                                     controller.changeSearch(value);
+                                    });
+                                  },
+                                  decoration: const InputDecoration(
+                                    prefixIcon: Icon(Icons.search),
+                                    labelText: 'Digite sua busca',
+                                    labelStyle: TextStyle(
+                                      color: verde_black,
+                                      fontFamily: 'Poppins',
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500
                                     ),
-                                  );
-                                },
-                                child: Card(
-                                  color: Colors.white,
-                                  elevation: 5.0,
-                                  margin: const EdgeInsets.all(7.0),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5),
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: <Widget>[
-                                        immobile.images.isNotEmpty
-                                            ? Image.network(
-                                                immobile.images.first.url,
-                                                height: 100,
-                                                width: MediaQuery.of(context).size.width,
-                                                fit: BoxFit.cover,
-                                              )
-                                            : const Text('Imagem indisponível'),
-                                        const SizedBox(height: 5),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              immobile.name,
-                                              style: const TextStyle(
-                                               fontWeight: FontWeight.bold,
-                                               fontSize: 10,
-                                               color: Color(0xFF265C5F),
-                                              ),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                            const Spacer(),
-                                              IconButton(
-                                                onPressed: () {
-                                                  final immobileId = immobile.id; // Mudança aqui
-                                                  print('Id do imóvel: $immobileId');
-                                                  confirmDelete(immobileId.toString());
-                                                },
-                                                icon: Icon(
-                                                  Icons.delete,
-                                                  color: Colors.red,
-                                                ),
-                                              )
-                                          ],
-                                        ),
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            const Icon(
-                                              Icons.apartment,
-                                              size: 12,
-                                              color: Color(0xFF265C5F),
-                                            ),
-                                            const SizedBox(width: 4),
-                                            Text(
-                                              immobile.type,
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.normal,
-                                                fontSize: 10,
-                                                color: Color(0xFF265C5F),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
+                                    contentPadding: EdgeInsets.zero,
+                                    filled: true,
+                                    fillColor: Colors.transparent,
+                                    border: InputBorder.none,
                                   ),
                                 ),
-                              );
-                            },
+                              ),
+                              const SizedBox(width: 10),
+                              CustomButtonSearch(
+                                text: 'Pesquisar', 
+                                onPressed: () {
+                                  _searchImmobiles();
+                                }
+                              ),
+                            ],
                           ),
+                        ),
+                        const SizedBox(height: 30),
+                        filteredImmobiles.isEmpty
+                        ? const Center(
+                            child: Text(
+                              'Nenhum imóvel encontrado.',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.red,
+                              ),
+                            ),
+                          )
+                        : Stack(
+                          children: [
+                            SizedBox(
+                            height: (controller.immobile.length / 2).ceil() * 200,
+                            width: MediaQuery.of(context).size.width,
+                            child: GridView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 10,
+                                mainAxisSpacing: 10,
+                                childAspectRatio: 1 / 1,
+                              ),
+                              itemCount: filteredImmobiles.length,
+                              itemBuilder: (context, index) {
+                                final immobile = filteredImmobiles[index];
+                                return GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => ImmobileDetailPage(immobile: immobile),
+                                      ),
+                                    );
+                                  },
+                                  child: Card(
+                                    color: Colors.white,
+                                    elevation: 5.0,
+                                    margin: const EdgeInsets.all(7.0),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(5),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: <Widget>[
+                                          immobile.images.isNotEmpty
+                                              ? Image.network(
+                                                  immobile.images.first.url,
+                                                  height: 100,
+                                                  width: MediaQuery.of(context).size.width,
+                                                  fit: BoxFit.cover,
+                                                )
+                                              : const Text('Imagem indisponível'),
+                                          const SizedBox(height: 5),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                immobile.name,
+                                                style: const TextStyle(
+                                                 fontWeight: FontWeight.bold,
+                                                 fontSize: 10,
+                                                 color: Color(0xFF265C5F),
+                                                ),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                              const Spacer(),
+                                                IconButton(
+                                                  onPressed: () {
+                                                    final immobileId = immobile.id; // Mudança aqui
+                                                    print('Id do imóvel: $immobileId');
+                                                    confirmDelete(immobileId.toString());
+                                                  },
+                                                  icon: Icon(
+                                                    Icons.delete,
+                                                    color: Colors.red,
+                                                  ),
+                                                )
+                                            ],
+                                          ),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              const Icon(
+                                                Icons.apartment,
+                                                size: 12,
+                                                color: Color(0xFF265C5F),
+                                              ),
+                                              const SizedBox(width: 4),
+                                              Text(
+                                                immobile.type,
+                                                style: const TextStyle(
+                                                  fontWeight: FontWeight.normal,
+                                                  fontSize: 10,
+                                                  color: Color(0xFF265C5F),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                          ]
                         ),
                       ],
                     ),
