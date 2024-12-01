@@ -26,7 +26,7 @@ class _UserPageState extends State<UserPage> {
     super.initState();
   }
 
-  void _searchUsers() {
+  Future<void> _searchUsers() async {
     controller.buscarUsers();
   }
 
@@ -35,24 +35,58 @@ class _UserPageState extends State<UserPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Confirmação de Exclusão'),
-          content: Text('Deseja excluir o usuário ${user.username}?'),
+          title: const Text('Confirmação de Exclusão',
+          style: TextStyle(
+            color: verde_black,
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+            fontFamily: 'Poppins',
+          )),
+          content: Text('Deseja excluir o usuário ${user.username}?',
+          style: TextStyle(
+            color: verde_medio,
+            fontWeight: FontWeight.normal,
+            fontSize: 16,
+            fontFamily: 'Poppins',
+          )),
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: const Text('Cancelar'),
+              child: const Text('Cancelar', 
+              style: TextStyle(
+                color: Colors.grey,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Poppins'
+              ),),
             ),
             TextButton(
               onPressed: () {
-                // Aqui você chamaria a função de exclusão no controller
+                removeUser(user.id.toString());
                 Navigator.of(context).pop();
               },
-              child: const Text('Excluir', style: TextStyle(color: Colors.red)),
+              child: const Text('Excluir', 
+              style: TextStyle(
+                color: Colors.red,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Poppins'
+              ),),
             ),
           ],
         );
       },
     );
+  }
+
+  Future<void> removeUser(String id) async {
+    try {
+      await controller.deleteUser(id);
+      await _searchUsers();
+    } catch (error) {
+      print('Erro ao remover o usuário: $error');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Erro ao excluir usuário")),
+      );
+    }
   }
 
   @override
@@ -84,6 +118,10 @@ class _UserPageState extends State<UserPage> {
             padding: const EdgeInsets.all(20),
             child: Column(
               children: [
+                SizedBox(
+                  width: 350,
+                  child: Divider(),
+                ),
                 Row(
                   children: [
                     Expanded(
@@ -120,7 +158,12 @@ class _UserPageState extends State<UserPage> {
                 const SizedBox(height: 20),
                 Expanded(
                   child: controller.user.isEmpty
-                      ? const Center(child: Text('Nenhum usuário encontrado.'))
+                      ? const Center(child: Text('Nenhum usuário encontrado.', 
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.red,
+                      ),))
                       : _Body(user: controller.user, onDelete: _confirmDelete),
                 ),
               ],

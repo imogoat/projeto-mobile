@@ -93,7 +93,6 @@ class UserRepository {
       await _rest.put(path, {
         "role": role,
       },);
-      print('FELICIDADE');
       return true;
     } catch (error) {
       print("Erro ao atualizar usuário: $error");
@@ -101,10 +100,18 @@ class UserRepository {
     }
   }
 
+  Future<void> deleteUser(String id) async {
+    try {
+      await _rest.delete('https://imogoat-api.onrender.com/delete-user', id);
+    } catch (error) {
+      print('Erro ao deletar usuário: $error');
+      rethrow;
+    }
+  } 
+
   Future<bool> updateUserData(String path, User data) async {
     try {
       await _rest.put(path, data.toMap());
-      print('FELICIDADE');
       return true;
     } catch (error) {
       print("Erro ao atualizar usuário: $error");

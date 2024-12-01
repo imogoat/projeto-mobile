@@ -75,6 +75,7 @@ class _MainHomeState extends State<MainHome> {
     });
     await controller.buscarImmobiles();
     setState(() {
+      filteredImmobiles = controller.immobile;
       _isLoading = false;
     });
   }
@@ -221,6 +222,7 @@ class _MainHomeState extends State<MainHome> {
                                             onChanged: (value) {
                                               setState(() {
                                                 controller.changeSearch(value);
+                                                filteredImmobiles = controller.immobile;
                                               });
                                             },
                                             decoration: const InputDecoration(

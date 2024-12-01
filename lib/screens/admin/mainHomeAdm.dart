@@ -87,6 +87,7 @@ class _MainHomeAdmPageState extends State<MainHomeAdmPage> {
     });
     await controller.buscarImmobiles();
     setState(() {
+      filteredImmobiles = controller.immobile;
       _isLoading = false;
     });
   }
@@ -146,25 +147,25 @@ class _MainHomeAdmPageState extends State<MainHomeAdmPage> {
                   child: Center(
                     child: Column(
                       children: [
-                        const SizedBox(height: 10),
-                        const Text(
-                          'Lista de imóveis...',
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                        ),
-                        const Text(
-                          'Todos os imóveis ficam aqui.',
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontSize: 18,
-                            color: Color(0xFF2E3C4E),
-                          ),
-                        ),
-                        const SizedBox(height: 10),
+                        const SizedBox(height: 20),
+                        // const Text(
+                        //   'Lista de imóveis...',
+                        //   style: TextStyle(
+                        //     fontFamily: 'Poppins',
+                        //     fontSize: 25,
+                        //     fontWeight: FontWeight.bold,
+                        //     color: Colors.black,
+                        //   ),
+                        // ),
+                        // const Text(
+                        //   'Todos os imóveis ficam aqui.',
+                        //   style: TextStyle(
+                        //     fontFamily: 'Poppins',
+                        //     fontSize: 18,
+                        //     color: Color(0xFF2E3C4E),
+                        //   ),
+                        // ),
+                        // const SizedBox(height: 10),
                         const SizedBox(
                           width: 350,
                           child: Divider(),
@@ -178,7 +179,8 @@ class _MainHomeAdmPageState extends State<MainHomeAdmPage> {
                                   cursorColor: Colors.black,
                                   onChanged: (value) {
                                     setState(() {
-                                     controller.changeSearch(value);
+                                      controller.changeSearch(value);
+                                      filteredImmobiles = controller.immobile; // Aplica o filtro local
                                     });
                                   },
                                   decoration: const InputDecoration(

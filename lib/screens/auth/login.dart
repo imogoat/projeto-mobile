@@ -8,6 +8,7 @@ import 'package:imogoat/components/signUpPrompt.dart';
 import 'package:imogoat/controllers/user_controller.dart';
 import 'package:imogoat/models/rest_client.dart';
 import 'package:imogoat/repositories/user_repository.dart';
+import 'package:imogoat/styles/color_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget { 
@@ -70,11 +71,29 @@ class _LoginPageState extends State<LoginPage> {
         builder: (BuildContext context) {
           return AlertDialog(
 
-            title: const Text('Login Invalido'),
-            content:  Text('Seu E-mail e/ou senha inválidos'),
+            title: const Text('Login Inválido',
+            style: TextStyle(
+              color: verde_black,
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+              fontFamily: 'Poppins',
+            )),
+            content:  Text('E-mail ou senha inválidos. Tente novamente.',
+            style: TextStyle(
+              color: verde_medio,
+              fontWeight: FontWeight.normal,
+              fontSize: 16,
+              fontFamily: 'Poppins',
+            )),
             actions: [
               TextButton(
-                child: const Text('OK'),
+                child: const Text('OK',
+                style: TextStyle(
+                  color: verde_medio,
+                  fontWeight: FontWeight.bold,
+                  // fontSize: 22,
+                  fontFamily: 'Poppins',
+                ),),
                 onPressed: () {
                   Navigator.pop(context);
                 },
@@ -155,7 +174,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          login(_email.text, _password.text);
+                          login(_email.text.trim(), _password.text.trim());
                         }
                       }, 
                       style: ButtonStyle(

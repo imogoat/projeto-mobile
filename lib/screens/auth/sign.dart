@@ -7,6 +7,7 @@ import 'package:imogoat/components/textInput.dart';
 import 'package:imogoat/controllers/user_controller.dart';
 import 'package:imogoat/models/rest_client.dart';
 import 'package:imogoat/repositories/user_repository.dart';
+import 'package:imogoat/styles/color_constants.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -49,11 +50,29 @@ class _SignUpPageState extends State<SignUpPage> {
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
-              title: const Text('Alerta'),
-              content: const Text('Não foi possível cadastrar seu Usuário!'),
+              title: const Text('Alerta',
+              style: TextStyle(
+                color: verde_black,
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                fontFamily: 'Poppins',
+              )),
+              content: const Text('Não foi possível cadastrar seu Usuário!',
+              style: TextStyle(
+                color: verde_medio,
+                fontWeight: FontWeight.normal,
+                fontSize: 16,
+                fontFamily: 'Poppins',
+              )),
               actions: [
                 TextButton(
-                  child: const Text('OK'),
+                  child: const Text('OK',
+                  style: TextStyle(
+                    color: verde_medio,
+                    fontWeight: FontWeight.bold,
+                    // fontSize: 22,
+                    fontFamily: 'Poppins',
+                  ),),
                   onPressed: () {
                     Navigator.pop(context);
                   },
@@ -161,7 +180,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     child: ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          signUp(_username.text, _email.text, _number.text, _password.text);
+                          signUp(_username.text.trim(), _email.text.trim(), _number.text.trim(), _password.text.trim());
                         }
                       },
                       style: ButtonStyle(

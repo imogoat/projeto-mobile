@@ -100,6 +100,14 @@ class ControllerUser extends ChangeNotifier {
     }
   }
 
+  Future<void> deleteUser(String id) async {
+    try {
+      await _repository.deleteUser(id);
+    } catch (e) {
+      print('Erro ao remover usuário: $e');
+    }
+  }
+
     Future<bool> updateUserDate(String path, User data) async {
     try {
       loading = true;
