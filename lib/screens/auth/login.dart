@@ -27,7 +27,7 @@ class _LoginPageState extends State<LoginPage> {
   String role = '';
   int? id_user;
   bool result = false;
-  final controller = ControllerUser(userRepository: UserRepository(restClient: GetIt.I.get<RestClient>()));
+  // final controller = ControllerUser(userRepository: UserRepository(restClient: GetIt.I.get<RestClient>()));
 
 
   Future login(String email, String password) async {
@@ -108,7 +108,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF0F2F5),
+      backgroundColor: background,
       body: SingleChildScrollView(
         child: Form(
           child: Padding(
