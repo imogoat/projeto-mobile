@@ -57,11 +57,11 @@ class _LoginPageState extends State<LoginPage> {
     await sharedPreferences.setString('token', token);
 
     if (role == 'user') {
-      Navigator.pushNamed(context, '/home');
+      Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
     } else if (role == 'owner') {
-      Navigator.pushNamed(context, '/homeOwner');
+      Navigator.pushNamedAndRemoveUntil(context, '/homeOwner', (route) => false);
     } else if (role == 'admin') {
-      Navigator.pushNamed(context, '/homeAdm');
+      Navigator.pushNamedAndRemoveUntil(context, '/homeAdm', (route) => false);
     }
     
     } catch (error) {
@@ -151,11 +151,27 @@ class _LoginPageState extends State<LoginPage> {
                   key: _formKey,
                   child: Column(
                   children: [
-                    TextInput(controller: _email, labelText: 'Email', hintText: 'exemplo@gmail.com', keyboardType: TextInputType.emailAddress),
+                    TextInput(controller: _email, labelText: 'Email', hintText: 'exemplo@gmail.com', keyboardType: TextInputType.emailAddress,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Por favor, digite um e-mail.';
+                      } else if (!RegExp(
+                              r'^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$')
+                          .hasMatch(value)) {
+                        return 'E-mail inválido';
+                      }
+                      return null;
+                    },),
                     SizedBox(
                       height: 20,
                     ),
-                    PasswordInput(controller: _password, labelText: 'Senha', hintText: 'Digite sua senha'),
+                    PasswordInput(controller: _password, labelText: 'Senha', hintText: 'Digite sua senha',
+                    validator: (value) {
+                        if (value == null || value.length < 6) {
+                          return 'A senha deve ter pelo menos 6 caracteres.';
+                        }
+                        return null;
+                      },),
                     SizedBox(
                       height: 20,
                     ),
