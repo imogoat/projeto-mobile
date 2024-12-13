@@ -131,11 +131,16 @@ class _CreateImmobilePageState extends State<StapeOneCreateImmobilePage> {
                     width: 365,
                     child: ElevatedButton(
                       onPressed: () {
-                        immobile_post = ImmobilePost(name: _name.text, number: int.parse(_number.text), type: _type.text);
                         if (_formKey.currentState!.validate()) {
-                          Navigator.pushNamed(context, '/step_two', arguments: {
-                          "immobile_data": immobile_post
-                        });
+                          try {
+                            immobile_post = ImmobilePost(name: _name.text.trim(), number: int.parse(_number.text.trim()), type: _type.text.trim());
+                            Navigator.pushNamed(context, '/step_two', arguments: {
+                              "immobile_data": immobile_post
+                            });
+                          } catch (error) {
+                            print('Erro ao processar o valor: $error');
+                            _showDialog(context);
+                          }
                         } else {
                           _showDialog(context);
                         }

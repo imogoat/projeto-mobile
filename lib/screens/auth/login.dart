@@ -167,7 +167,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     PasswordInput(controller: _password, labelText: 'Senha', hintText: 'Digite sua senha',
                     validator: (value) {
-                        if (value == null || value.length < 6) {
+                        if (value == null || value.length < 3) {
                           return 'A senha deve ter pelo menos 6 caracteres.';
                         }
                         return null;

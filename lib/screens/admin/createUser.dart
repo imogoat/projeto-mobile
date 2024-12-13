@@ -53,7 +53,7 @@ class _CreateUserPageState extends State<CreateUserPage> {
       result = await controller.signUpUser('/create-user', username, email, password, number, role);
       Navigator.pop(context);
       if (result) {
-        Navigator.pushNamed(context, '/user_page');
+        _showDialog(context);
       } else {
         showDialog(
           context: context,
@@ -77,6 +77,46 @@ class _CreateUserPageState extends State<CreateUserPage> {
       Navigator.pop(context);
       print(error);
     }
+  }
+
+  Future<void> _showDialog(BuildContext context) async {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Usuário Criado!', 
+          style: TextStyle(
+            color: verde_black,
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+            fontFamily: 'Poppins',
+          )),
+          content: const Text('O usuário foi criado com sucesso!',
+          style: TextStyle(
+            color: verde_medio,
+            fontWeight: FontWeight.normal,
+            fontSize: 16,
+            fontFamily: 'Poppins',
+          )),
+          actions: [
+            TextButton(
+              child: const Text('OK', 
+              style: TextStyle(
+                color: verde_medio,
+                fontWeight: FontWeight.bold,
+                // fontSize: 22,
+                fontFamily: 'Poppins',
+              ),
+              ),
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.pushReplacementNamed(context, '/homeAdm');
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override

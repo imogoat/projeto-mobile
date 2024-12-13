@@ -144,12 +144,17 @@ class _CreateImmobilePageState extends State<StepTwoCreateImmobilePage> {
                     width: 365,
                     child: ElevatedButton(
                       onPressed: () {
-                        immobile_post = ImmobilePost(name: immobile_post_aux.name, number: immobile_post_aux.number, type: immobile_post_aux.type, location: _location.text, bairro: _bairro.text, city: _city.text, reference: _reference.text);
-                        print('Teste 2: ' + immobile_post.toMap().toString());
                         if (_formKey.currentState!.validate()) {
-                          Navigator.pushNamed(context, '/step_three', arguments: {
-                          "immobile_data": immobile_post
-                        });
+                          try {
+                            immobile_post = ImmobilePost(name: immobile_post_aux.name, number: immobile_post_aux.number, type: immobile_post_aux.type, location: _location.text, bairro: _bairro.text, city: _city.text, reference: _reference.text);
+                            print('Teste 2: ' + immobile_post.toMap().toString());
+                            Navigator.pushNamed(context, '/step_three', arguments: {
+                              "immobile_data": immobile_post
+                            });
+                          } catch (error) {
+                            print('Erro ao processar o valor: $error');
+                            _showDialog(context);
+                          }
                         } else {
                           _showDialog(context);
                         }

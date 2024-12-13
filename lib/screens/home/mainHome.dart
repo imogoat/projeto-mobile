@@ -29,6 +29,8 @@ class _MainHomeState extends State<MainHome> {
   List<bool> isFavorited = [];
   List<Immobile> filteredImmobiles = [];
 
+  Animation<double> animation = AlwaysStoppedAnimation(0.5);
+
   @override
   void initState() {
     super.initState();
@@ -154,6 +156,7 @@ class _MainHomeState extends State<MainHome> {
                         child: Image.asset(
                           "assets/images/header.jpeg",
                           fit: BoxFit.cover,
+                          opacity: animation,
                         ),
                       ),
                     ),

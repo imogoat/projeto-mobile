@@ -10,6 +10,7 @@ import 'package:imogoat/components/appBarCliente.dart';
 import 'package:imogoat/models/immobile.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:imogoat/styles/color_constants.dart';
+import 'package:intl/intl.dart';
 
 
 class ImmobileDetailPage extends StatefulWidget {
@@ -23,6 +24,7 @@ class ImmobileDetailPage extends StatefulWidget {
 
 class _ImmobileDetailPageState extends State<ImmobileDetailPage> {
   String role = '';
+  int id = 0;
 
   final controller = ControllerImmobile(
       immobileRepository: ImmobileRepository(restClient: GetIt.I.get<RestClient>()));
@@ -36,9 +38,12 @@ class _ImmobileDetailPageState extends State<ImmobileDetailPage> {
   Future<void> getRole() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String? storedRole = sharedPreferences.getString('role');
+    String? proprietaryId = sharedPreferences.getString('id');
     print('O tipo de usuário é: $storedRole');
+    print('Id do proprietário: $proprietaryId');
     setState(() {
       role = storedRole ?? '';
+      id = int.tryParse(proprietaryId ?? '0') ?? 0;
     });
   }
 
@@ -184,9 +189,13 @@ class _ImmobileDetailPageState extends State<ImmobileDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    final formattedValue = NumberFormat.currency(
+      locale: 'pt_BR',
+      symbol: 'R\$',
+    ).format(widget.immobile.value);
     return Scaffold(
       appBar: AppBarCliente(),
-      floatingActionButton: role == 'owner' || role == 'admin'
+      floatingActionButton: role == 'owner' && id == widget.immobile.proprietaryId || role == 'admin'
           ? FloatingActionButton(
               backgroundColor: Color(0xFFFFC107),
               foregroundColor: Colors.white,
@@ -263,7 +272,7 @@ class _ImmobileDetailPageState extends State<ImmobileDetailPage> {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      'R\$ ${widget.immobile.value.toStringAsFixed(2)}',
+                      '${formattedValue}',
                       style: const TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,

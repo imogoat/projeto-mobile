@@ -102,13 +102,13 @@ Future<void> _showDialog(BuildContext context) async {
   Widget build(BuildContext context) {
     final arguments = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
     ImmobilePost immobile_post_aux = arguments?['immobile_data'];
-
-    // final maskFormatter = MaskTextInputFormatter(
-    //   mask: '###.###.###,##',
-    //   filter: { "#": RegExp(r'[0-9]') }, 
-    // );
   
     // print('Teste: ' + immobile_post_aux.toMap().toString());
+
+    final _valueMaskFormatter = MaskTextInputFormatter(
+      mask: 'R\$ ###.###.###,##',  // Adicionando o prefixo "R$" e adaptando a formatação
+      filter: { "#": RegExp(r'[0-9]') }, // Permite apenas números
+    );
     
     return Scaffold(
       appBar: AppBarCliente(),
@@ -134,7 +134,8 @@ Future<void> _showDialog(BuildContext context) async {
                   ),
                   const SizedBox(height: 10),
                   TextInput(controller: _valueImmobile, labelText: 'Valor do imóvel', hintText: 'Ex: 1.000,00',
-                  keyboardType: TextInputType.number,
+                  inputFormatters: [_valueMaskFormatter],
+                  keyboardType: TextInputType.numberWithOptions(decimal: true),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'O campo não pode ser vazio';
@@ -199,11 +200,18 @@ Future<void> _showDialog(BuildContext context) async {
                     child: ElevatedButton(
                       onPressed: () async {
                         if (_formKey.currentState!.validate()) {
-                          SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-                          String userId = sharedPreferences.getString('id').toString();
-                          immobile_post = ImmobilePost(name: immobile_post_aux.name, number: immobile_post_aux.number, type: immobile_post_aux.type, location: immobile_post_aux.location, bairro: immobile_post_aux.bairro, city: immobile_post_aux.city, reference: immobile_post_aux.reference, value: double.parse(_valueImmobile.text), numberOfBedrooms: int.parse(_numberOfBedrooms.text), numberOfBathrooms: int.parse(_numberOfBathrooms.text), garagem: _hasGarage, description: _description.text, proprietaryId: int.parse(userId));
-                          print('Immobile: ' + immobile_post.toMap().toString());
-                          createImmobile(immobile_post);
+                          try {
+                            SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+                            String userId = sharedPreferences.getString('id').toString();
+                            String valueImmobileNormalized = _valueImmobile.text.replaceAll('.', '').replaceAll(',', '.');
+
+                            immobile_post = ImmobilePost(name: immobile_post_aux.name, number: immobile_post_aux.number, type: immobile_post_aux.type, location: immobile_post_aux.location, bairro: immobile_post_aux.bairro, city: immobile_post_aux.city, reference: immobile_post_aux.reference, value: double.parse(valueImmobileNormalized), numberOfBedrooms: int.parse(_numberOfBedrooms.text), numberOfBathrooms: int.parse(_numberOfBathrooms.text), garagem: _hasGarage, description: _description.text, proprietaryId: int.parse(userId));
+                            print('Immobile: ' + immobile_post.toMap().toString());
+                            createImmobile(immobile_post);
+                          } catch (error) {
+                            print('Erro ao processar o valor: $error');
+                            _showDialog(context);
+                          }
                         } else {
                           _showDialog(context);
                         }
