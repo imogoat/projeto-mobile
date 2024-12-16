@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get_it/get_it.dart';
 import 'package:imogoat/components/loading.dart';
 import 'package:imogoat/controllers/immobile_controller.dart';
@@ -441,14 +442,26 @@ class _ImmobileDetailPageState extends State<ImmobileDetailPage> {
                     elevation: MaterialStateProperty.all(0),
                     minimumSize: MaterialStateProperty.all(const Size(200, 50)),
                   ),
-                  child: Text(
-                    'Entrar em contato',
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                      color: Color.fromARGB(255, 24, 157, 130),
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      FaIcon(
+                        FontAwesomeIcons.whatsapp,
+                        color: Color.fromARGB(255, 24, 157, 130),
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Text(
+                        'Entrar em contato',
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          color: Color.fromARGB(255, 24, 157, 130),
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),

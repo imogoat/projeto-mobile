@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:imogoat/styles/color_constants.dart';
 
 class ContactsPage extends StatefulWidget {
   const ContactsPage({super.key});
@@ -98,14 +100,26 @@ class _ContactsPageState extends State<ContactsPage> {
                       elevation: MaterialStateProperty.all(0),
                       minimumSize: MaterialStateProperty.all(const Size(200, 50)),
                     ),
-                    child: Text(
-                      'Entrar em contato',
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        color: Color.fromARGB(255, 24, 157, 130),
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        FaIcon(
+                          FontAwesomeIcons.whatsapp,
+                          color: verde_contato
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        Text(
+                          'Entrar em contato',
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            color: verde_contato,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),

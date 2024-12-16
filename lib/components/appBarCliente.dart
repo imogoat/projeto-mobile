@@ -43,7 +43,10 @@ class AppBarCliente extends StatelessWidget implements PreferredSizeWidget {
             if (value == 'logout') {
               logout();
               Navigator.pushNamedAndRemoveUntil(context, '/', (Route<dynamic> route) => false);
-            }
+            } 
+            // else if (value == 'settings') {
+            //   Navigator.pushNamed(context, '/settings');
+            // }
           },
         )
       );

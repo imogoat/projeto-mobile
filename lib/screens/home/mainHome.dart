@@ -230,11 +230,11 @@ class _MainHomeState extends State<MainHome> {
                                             },
                                             decoration: const InputDecoration(
                                               prefixIcon: Icon(Icons.search),
-                                              labelText: 'Digite sua busca',
+                                              labelText: 'Bairro de interese',
                                               labelStyle: TextStyle(
                                                   color: verde_black,
                                                   fontFamily: 'Poppins',
-                                                  fontSize: 16,
+                                                  fontSize: 15,
                                                   fontWeight: FontWeight.w500),
                                               contentPadding: EdgeInsets.zero,
                                               filled: true,

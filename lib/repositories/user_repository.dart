@@ -107,7 +107,7 @@ class UserRepository {
       print('Erro ao deletar usuário: $error');
       rethrow;
     }
-  } 
+  }
 
   Future<bool> updateUserData(String path, User data) async {
     try {

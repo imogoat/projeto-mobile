@@ -29,7 +29,7 @@ class ControllerImmobile extends ChangeNotifier {
 
   List<Immobile> get immobile {
     return _immobiles
-        .where((e) => e.name.toLowerCase().contains(search.toLowerCase())).toList();
+        .where((e) => e.bairro.toLowerCase().contains(search.toLowerCase())).toList();
   }
 
   Future<void> buscarImmobiles() async {
