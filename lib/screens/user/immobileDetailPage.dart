@@ -195,7 +195,9 @@ class _ImmobileDetailPageState extends State<ImmobileDetailPage> {
       symbol: 'R\$',
     ).format(widget.immobile.value);
     return Scaffold(
-      appBar: AppBarCliente(),
+      appBar: AppBar(
+        backgroundColor: verde_medio,
+      ),
       floatingActionButton: role == 'owner' && id == widget.immobile.proprietaryId || role == 'admin'
           ? FloatingActionButton(
               backgroundColor: Color(0xFFFFC107),

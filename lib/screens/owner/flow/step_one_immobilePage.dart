@@ -78,7 +78,9 @@ class _CreateImmobilePageState extends State<StapeOneCreateImmobilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarCliente(),
+      appBar: AppBar(
+        backgroundColor: verde_medio,
+      ),
       backgroundColor: const Color(0xFFF0F2F5),
       body: Form(
         key: _formKey,
@@ -134,6 +136,7 @@ class _CreateImmobilePageState extends State<StapeOneCreateImmobilePage> {
                         if (_formKey.currentState!.validate()) {
                           try {
                             immobile_post = ImmobilePost(name: _name.text.trim(), number: int.parse(_number.text.trim()), type: _type.text.trim());
+                            print('Immobile 01: ' + immobile_post.toMap().toString());
                             Navigator.pushNamed(context, '/step_two', arguments: {
                               "immobile_data": immobile_post
                             });

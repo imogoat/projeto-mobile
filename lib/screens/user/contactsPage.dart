@@ -13,14 +13,6 @@ class _ContactsPageState extends State<ContactsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: Icon(Icons.circle_outlined),
-        backgroundColor: Color(0xFFF0F2F5),
-        title: Text(
-          'Contato',
-          style: TextStyle(color: Color(0xFF2E3C4E)),
-        ),
-      ),
       backgroundColor: Color(0xFFF0F2F5),
       body: SingleChildScrollView(
         child: Center(
@@ -28,7 +20,7 @@ class _ContactsPageState extends State<ContactsPage> {
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Column(
               children: [
-                SizedBox(height: 20),
+                SizedBox(height: 40),
                 // Removido Positioned.fill
                 ClipRRect(
                   borderRadius: BorderRadius.circular(8.0), // Para um pouco de arredondamento

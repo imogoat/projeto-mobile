@@ -18,7 +18,7 @@ class ImmobileRepository {
       await _rest.post(path, data.toMap());
       return true;
     } catch (error) {
-      print('Erro ao atualizar imóvel: $error');
+      print('Erro ao criar imóvel: $error');
       return false;
     }
   }

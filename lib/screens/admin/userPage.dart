@@ -103,21 +103,12 @@ class _UserPageState extends State<UserPage> {
         }
 
         return Scaffold(
-          appBar: AppBar(
-            leading: Icon(Icons.circle_outlined),
-            backgroundColor: const Color(0xFFF0F2F5),
-            title: const Text(
-              'Usuários do Sistema',
-              style: TextStyle(
-                color: Color(0xFF2E3C4E),
-              ),
-            ),
-          ),
           backgroundColor: background,
           body: Padding(
             padding: const EdgeInsets.all(20),
             child: Column(
               children: [
+                const SizedBox(height: 40),
                 SizedBox(
                   width: 350,
                   child: Divider(),

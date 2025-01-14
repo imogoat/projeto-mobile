@@ -7,7 +7,6 @@ import 'package:imogoat/screens/user/campaignPage.dart';
 import 'package:imogoat/screens/user/contactsPage.dart';
 import 'package:imogoat/screens/user/favoritePage.dart';
 
-
 class HomePageOwner extends StatefulWidget {
   const HomePageOwner({super.key});
 
@@ -22,36 +21,30 @@ class _HomePageState extends State<HomePageOwner> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF0F2F5),
-      appBar: AppBarCliente(),
-      // drawer: DrawerCliente(),
-      bottomNavigationBar: CustomCurvedNavigationBarOwner(
-        currentIndex: _page,
-        onTap: (index) {
-          setState(() {
-            _page = index;
-          });
-          _pageController.animateToPage(
-              index,
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.easeInOut,
-            );
-        },
-      ),
-      body: PageView(
-            controller: _pageController,
-            onPageChanged: (value) => setState(() {
-              _page = value;
-            }),
-            scrollDirection: Axis.horizontal,
-            children: [
-              MainHome(),
-              FavoritePage(),
-              OwnersPropertiesPage(),
-              CampaignPage(),
-              ContactsPage(),
-            ],
-          )
-    );
+        backgroundColor: const Color(0xFFF0F2F5),
+        appBar: AppBarCliente(),
+        // drawer: DrawerCliente(),
+        bottomNavigationBar: CustomCurvedNavigationBarOwner(
+          currentIndex: _page,
+          onTap: (index) {
+            _pageController.jumpToPage(index);
+          },
+        ),
+        body: PageView(
+          controller: _pageController,
+          onPageChanged: (index) {
+            setState(() {
+              _page = index;
+            });
+          },
+          scrollDirection: Axis.horizontal,
+          children: [
+            MainHome(),
+            FavoritePage(),
+            OwnersPropertiesPage(),
+            CampaignPage(),
+            ContactsPage(),
+          ],
+        ));
   }
 }

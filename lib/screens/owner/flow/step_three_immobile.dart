@@ -111,7 +111,9 @@ Future<void> _showDialog(BuildContext context) async {
     );
     
     return Scaffold(
-      appBar: AppBarCliente(),
+      appBar: AppBar(
+        backgroundColor: verde_medio,
+      ),
       backgroundColor: const Color(0xFFF0F2F5),
       body: Form(
         key: _formKey,
@@ -203,10 +205,11 @@ Future<void> _showDialog(BuildContext context) async {
                           try {
                             SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
                             String userId = sharedPreferences.getString('id').toString();
-                            String valueImmobileNormalized = _valueImmobile.text.replaceAll('.', '').replaceAll(',', '.');
+                            String valueImmobileNormalized = _valueImmobile.text.replaceAll(RegExp(r'[^\d,]'), '').replaceAll(',', '.');
+                            print('Preço: ' + valueImmobileNormalized);
 
                             immobile_post = ImmobilePost(name: immobile_post_aux.name, number: immobile_post_aux.number, type: immobile_post_aux.type, location: immobile_post_aux.location, bairro: immobile_post_aux.bairro, city: immobile_post_aux.city, reference: immobile_post_aux.reference, value: double.parse(valueImmobileNormalized), numberOfBedrooms: int.parse(_numberOfBedrooms.text), numberOfBathrooms: int.parse(_numberOfBathrooms.text), garagem: _hasGarage, description: _description.text, proprietaryId: int.parse(userId));
-                            print('Immobile: ' + immobile_post.toMap().toString());
+                            print('Immobile 03: ' + immobile_post.toMap().toString());
                             createImmobile(immobile_post);
                           } catch (error) {
                             print('Erro ao processar o valor: $error');

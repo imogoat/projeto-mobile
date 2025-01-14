@@ -11,6 +11,7 @@ import 'package:imogoat/repositories/image_repository.dart';
 import 'package:imogoat/repositories/immobile_repository.dart';
 import 'package:imogoat/screens/home/home.dart';
 import 'package:imogoat/screens/home/homeOwner.dart';
+import 'package:imogoat/styles/color_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class StapeFourCreateImmobilePage extends StatefulWidget {
@@ -90,7 +91,9 @@ class _StapeFourCreateImmobilePageState extends State<StapeFourCreateImmobilePag
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarCliente(),
+      appBar: AppBar(
+        backgroundColor: verde_medio,
+      ),
       backgroundColor: const Color(0xFFF0F2F5),
       body: Form(
         key: _formKey,

@@ -6,7 +6,7 @@ import 'package:imogoat/screens/home/mainHome.dart';
 import 'package:imogoat/screens/user/campaignPage.dart';
 import 'package:imogoat/screens/user/contactsPage.dart';
 import 'package:imogoat/screens/user/favoritePage.dart';
-
+import 'package:imogoat/styles/color_constants.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -22,35 +22,29 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF0F2F5),
-      appBar: AppBarCliente(),
-      // drawer: DrawerCliente(),
-      bottomNavigationBar: CustomCurvedNavigationBar(
-        currentIndex: _page,
-        onTap: (index) {
-          setState(() {
-            _page = index;
-          });
-          _pageController.animateToPage(
-              index,
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.easeInOut,
-            );
-        },
-      ),
-      body: PageView(
-            controller: _pageController,
-            onPageChanged: (value) => setState(() {
-              _page = value;
-            }),
-            scrollDirection: Axis.horizontal,
-            children: [
-              MainHome(),
-              FavoritePage(),
-              CampaignPage(),
-              ContactsPage(),
-            ],
-          )
-    );
+        backgroundColor: background,
+        appBar: AppBarCliente(),
+        // drawer: DrawerCliente(),
+        bottomNavigationBar: CustomCurvedNavigationBar(
+          currentIndex: _page,
+          onTap: (index) {
+            _pageController.jumpToPage(index);
+          },
+        ),
+        body: PageView(
+          controller: _pageController,
+          onPageChanged: (index) {
+            setState(() {
+              _page = index;
+            });
+          },
+          scrollDirection: Axis.horizontal,
+          children: [
+            MainHome(),
+            FavoritePage(),
+            CampaignPage(),
+            ContactsPage(),
+          ],
+        ));
   }
 }

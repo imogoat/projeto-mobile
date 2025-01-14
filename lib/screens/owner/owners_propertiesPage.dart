@@ -115,16 +115,6 @@ class _OwnersPropertiesPageState extends State<OwnersPropertiesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: Icon(Icons.circle_outlined),
-        backgroundColor: const Color(0xFFF0F2F5),
-        title: const Text(
-          'Imóveis do proprietário',
-          style: TextStyle(
-            color: Color(0xFF2E3C4E),
-          ),
-        ),
-      ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xFF1F7C70),
         foregroundColor: Colors.white,
@@ -155,7 +145,7 @@ class _OwnersPropertiesPageState extends State<OwnersPropertiesPage> {
                   child: Center(
                     child: Column(
                       children: [
-                        const SizedBox(height: 10),
+                        const SizedBox(height: 40),
                         const Text(
                           'Sua lista de imóveis...',
                           style: TextStyle(
@@ -186,7 +176,7 @@ class _OwnersPropertiesPageState extends State<OwnersPropertiesPage> {
                           width: 350,
                           child: Divider(),
                         ),
-                        const SizedBox(height: 50),
+                        const SizedBox(height: 20),
                         SizedBox(
                           height: (filteredImmobiles.length / 2).ceil() * 200,
                           width: MediaQuery.of(context).size.width,

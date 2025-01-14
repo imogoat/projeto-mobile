@@ -82,7 +82,9 @@ class _CreateImmobilePageState extends State<StepTwoCreateImmobilePage> {
     // print('Teste: ' + immobile_post_aux.toMap().toString());
 
     return Scaffold(
-      appBar: AppBarCliente(),
+      appBar: AppBar(
+        backgroundColor: verde_medio,
+      ),
       backgroundColor: const Color(0xFFF0F2F5),
       body: Form(
         key: _formKey,
@@ -147,7 +149,7 @@ class _CreateImmobilePageState extends State<StepTwoCreateImmobilePage> {
                         if (_formKey.currentState!.validate()) {
                           try {
                             immobile_post = ImmobilePost(name: immobile_post_aux.name, number: immobile_post_aux.number, type: immobile_post_aux.type, location: _location.text, bairro: _bairro.text, city: _city.text, reference: _reference.text);
-                            print('Teste 2: ' + immobile_post.toMap().toString());
+                            print('Immobile 02: ' + immobile_post.toMap().toString());
                             Navigator.pushNamed(context, '/step_three', arguments: {
                               "immobile_data": immobile_post
                             });

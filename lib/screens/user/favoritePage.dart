@@ -87,15 +87,6 @@ class _FavoritePageState extends State<FavoritePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: Icon(Icons.circle_outlined),
-        backgroundColor: Color(0xFFF0F2F5),
-        title: Text('Meus Favoritos',
-          style: TextStyle(
-            color: Color(0xFF2E3C4E)
-          ),
-        ),
-      ),
       backgroundColor: Color(0xFFF0F2F5),
       body: isLoading
           ? Center(child: CircularProgressIndicator(
@@ -114,7 +105,7 @@ class _FavoritePageState extends State<FavoritePage> {
                     child: Column(
                       children: [
                         SizedBox(
-                          height: 10,
+                          height: 40,
                         ),
                         Text('Sua lista de favoritos...',
                           style: TextStyle(
@@ -146,7 +137,7 @@ class _FavoritePageState extends State<FavoritePage> {
                           child: Divider(),
                         ),
                         SizedBox(
-                          height: 50,
+                          height: 20,
                         ),
                         Stack(
                           children: [

@@ -136,7 +136,9 @@ class _UserDetailPageState extends State<UserDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarCliente(),
+      appBar: AppBar(
+        backgroundColor: verde_medio,
+      ),
       floatingActionButton: FloatingActionButton(
               backgroundColor: Color(0xFFFFC107),
               foregroundColor: Colors.white,

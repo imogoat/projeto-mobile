@@ -15,7 +15,8 @@ class AppBarCliente extends StatelessWidget implements PreferredSizeWidget {
         elevation: 0,
         iconTheme: IconThemeData(color: Colors.white),
         centerTitle: true,
-        backgroundColor: Color(0xFF1F7C70),
+        backgroundColor: verde_medio,
+        automaticallyImplyLeading: false,
         actions: [
           Image(image: AssetImage("assets/images/logo_nova.png"),
           height: 50,

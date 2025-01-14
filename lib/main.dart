@@ -15,7 +15,8 @@ import 'package:imogoat/screens/owner/flow/step_two_immobile.dart';
 
 void main() {
   setupLocator();
-  runApp(const MyApp());
+  runApp(
+    const MyApp());
 }
 
 class MyApp extends StatelessWidget {

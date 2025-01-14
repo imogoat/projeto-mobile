@@ -93,12 +93,19 @@ class _MainHomeAdmPageState extends State<MainHomeAdmPage> {
   }
 
   Future<void> _loadImmobiles() async {
-    await controller.buscarImmobiles();
-    filteredImmobiles = controller.immobile;
+    // Verifica se a lista já está preenchida para evitar a requisição
+    if (filteredImmobiles.isEmpty) {
+      await controller.buscarImmobiles();
+      filteredImmobiles = controller.immobile;
+      _isLoading = true;
+    } else {
+      _isLoading = false;
+    }
     setState(() {
       _isLoading = false;
     });
   }
+
   
   Future<void> removeImmobile(String immobileId) async {
     try {
@@ -118,16 +125,6 @@ class _MainHomeAdmPageState extends State<MainHomeAdmPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: Icon(Icons.circle_outlined),
-        backgroundColor: const Color(0xFFF0F2F5),
-        title: const Text(
-          'Todos os imóveis',
-          style: TextStyle(
-            color: Color(0xFF2E3C4E),
-          ),
-        ),
-      ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Color(0xFF1F7C70),
         foregroundColor: Colors.white,
@@ -147,25 +144,7 @@ class _MainHomeAdmPageState extends State<MainHomeAdmPage> {
                   child: Center(
                     child: Column(
                       children: [
-                        const SizedBox(height: 20),
-                        // const Text(
-                        //   'Lista de imóveis...',
-                        //   style: TextStyle(
-                        //     fontFamily: 'Poppins',
-                        //     fontSize: 25,
-                        //     fontWeight: FontWeight.bold,
-                        //     color: Colors.black,
-                        //   ),
-                        // ),
-                        // const Text(
-                        //   'Todos os imóveis ficam aqui.',
-                        //   style: TextStyle(
-                        //     fontFamily: 'Poppins',
-                        //     fontSize: 18,
-                        //     color: Color(0xFF2E3C4E),
-                        //   ),
-                        // ),
-                        // const SizedBox(height: 10),
+                        const SizedBox(height: 40),
                         const SizedBox(
                           width: 350,
                           child: Divider(),
@@ -265,17 +244,18 @@ class _MainHomeAdmPageState extends State<MainHomeAdmPage> {
                                               : const Text('Imagem indisponível'),
                                           const SizedBox(height: 5),
                                           Row(
+                                            mainAxisAlignment: MainAxisAlignment.end,
                                             children: [
                                               Text(
                                                 immobile.name,
                                                 style: const TextStyle(
                                                  fontWeight: FontWeight.bold,
-                                                 fontSize: 10,
+                                                 fontSize: 14,
                                                  color: Color(0xFF265C5F),
                                                 ),
-                                                textAlign: TextAlign.center,
+                                                textAlign: TextAlign.right,
                                               ),
-                                              const Spacer(),
+                                              const SizedBox(width: 8),
                                                 IconButton(
                                                   onPressed: () {
                                                     final immobileId = immobile.id; // Mudança aqui
@@ -293,13 +273,13 @@ class _MainHomeAdmPageState extends State<MainHomeAdmPage> {
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
                                               const Icon(
-                                                Icons.apartment,
+                                                Icons.location_on,
                                                 size: 12,
                                                 color: Color(0xFF265C5F),
                                               ),
                                               const SizedBox(width: 4),
                                               Text(
-                                                immobile.type,
+                                                immobile.bairro,
                                                 style: const TextStyle(
                                                   fontWeight: FontWeight.normal,
                                                   fontSize: 10,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 import 'package:imogoat/components/buttonHomeCliente.dart';
 import 'package:imogoat/components/buttonHomeSearch.dart';
@@ -44,6 +45,9 @@ class _MainHomeState extends State<MainHome> {
 
 
   Future<void> _loadImmobiles() async {
+    setState(() {
+      _isLoading = true;
+    });
     await controller.buscarImmobiles();
     filteredImmobiles = controller.immobile;
     isFavorited = List.generate(controller.immobile.length, (index) => false);
@@ -187,7 +191,7 @@ class _MainHomeState extends State<MainHome> {
                           const SizedBox(height: 20),
                           Center(
                             child: Container(
-                              width: 350,
+                              width: 360,
                               height: 110,
                               decoration: BoxDecoration(
                                 color: Colors.white,
@@ -199,19 +203,25 @@ class _MainHomeState extends State<MainHome> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       SubmitButtonHome(
-                                          texto: 'Apartamento', onPressed: () {
+                                        texto: 'Todos', onPressed: () {
+                                          _loadImmobiles();
+                                      }),
+                                      const SizedBox(width: 3),
+                                      SubmitButtonHome(
+                                          texto: 'AP', onPressed: () {
                                             _searchImmobilesByType('apartamento');
                                           }),
-                                      const SizedBox(width: 3.5),
+                                      const SizedBox(width: 3),
                                       SubmitButtonHome(
                                           texto: 'Casa', onPressed: () {
                                             _searchImmobilesByType('casa');
                                           }),
-                                      const SizedBox(width: 3.5),
+                                      const SizedBox(width: 3),
                                       SubmitButtonHome(
                                           texto: 'Quitinete', onPressed: () {
                                             _searchImmobilesByType('quitinete');
                                           }),
+                                          const SizedBox(width: 3),
                                     ],
                                   ),
                                   Row(
@@ -278,9 +288,11 @@ class _MainHomeState extends State<MainHome> {
                     : Stack(
                         children: [
                           SizedBox(
-                            height: (controller.immobile.length / 2).ceil() * 200,
+                            // height: (controller.immobile.length / 2).ceil() * 200,
                             width: MediaQuery.of(context).size.width,
+                            // height: MediaQuery.of(context).size.height,
                             child: GridView.builder(
+                              shrinkWrap: true,  // Faz o GridView ajustar sua altura ao conteúdo
                               physics: const NeverScrollableScrollPhysics(),
                               gridDelegate:
                                   const SliverGridDelegateWithFixedCrossAxisCount(
@@ -323,17 +335,18 @@ class _MainHomeState extends State<MainHome> {
                                               : const Text('Imagem indisponível'),
                                           const SizedBox(height: 5),
                                           Row(
+                                            mainAxisAlignment: MainAxisAlignment.end,
                                             children: [
                                               Text(
                                                 immobile.name,
                                                 style: const TextStyle(
                                                   fontWeight: FontWeight.bold,
-                                                  fontSize: 10,
+                                                  fontSize: 14,
                                                   color: Color(0xFF265C5F),
                                                 ),
-                                                textAlign: TextAlign.center,
+                                                textAlign: TextAlign.right,
                                               ),
-                                              const Spacer(),
+                                              const SizedBox(width: 8),
                                               IconButton(
                                                 onPressed: () {
                                                   setState(() {
@@ -366,13 +379,13 @@ class _MainHomeState extends State<MainHome> {
                                             mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
                                               Icon(
-                                                Icons.apartment,
+                                                Icons.location_on,
                                                 size: 12,
                                                 color: const Color(0xFF265C5F),
                                               ),
                                               const SizedBox(width: 4),
                                               Text(
-                                                immobile.type,
+                                                immobile.bairro,
                                                 style: const TextStyle(
                                                   fontWeight: FontWeight.normal,
                                                   fontSize: 10,

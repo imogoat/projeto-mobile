@@ -70,14 +70,6 @@ class _CampaignPageState extends State<CampaignPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: Icon(Icons.circle_outlined),
-        backgroundColor: Color(0xFFF0F2F5),
-        title: Text(
-          'Anúncio',
-          style: TextStyle(color: Color(0xFF2E3C4E)),
-        ),
-      ),
       backgroundColor: background,
       body: SingleChildScrollView(
         child: Center(
@@ -85,7 +77,7 @@ class _CampaignPageState extends State<CampaignPage> {
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: Column(
               children: [
-                SizedBox(height: 5),
+                SizedBox(height: 20),
                 ClipRRect(
                   child: Image.asset(
                     width: 250,
