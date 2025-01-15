@@ -219,17 +219,18 @@ class _OwnersPropertiesPageState extends State<OwnersPropertiesPage> {
                                             : const Text('Imagem indisponível'),
                                         const SizedBox(height: 5),
                                         Row(
+                                          mainAxisAlignment: MainAxisAlignment.end,
                                           children: [
                                             Text(
                                               immobile.name,
                                               style: const TextStyle(
                                                fontWeight: FontWeight.bold,
-                                               fontSize: 10,
+                                               fontSize: 14,
                                                color: Color(0xFF265C5F),
                                               ),
                                               textAlign: TextAlign.center,
                                             ),
-                                            const Spacer(),
+                                            const SizedBox(width: 8),
                                               IconButton(
                                                 onPressed: () {
                                                   final immobileId = immobile.id; // Mudança aqui
@@ -247,13 +248,13 @@ class _OwnersPropertiesPageState extends State<OwnersPropertiesPage> {
                                           mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
                                             const Icon(
-                                              Icons.apartment,
+                                              Icons.location_on,
                                               size: 12,
                                               color: Color(0xFF265C5F),
                                             ),
                                             const SizedBox(width: 4),
                                             Text(
-                                              immobile.type,
+                                              immobile.bairro,
                                               style: const TextStyle(
                                                 fontWeight: FontWeight.normal,
                                                 fontSize: 10,
@@ -270,6 +271,9 @@ class _OwnersPropertiesPageState extends State<OwnersPropertiesPage> {
                             },
                           ),
                         ),
+                        SizedBox(
+                          height: 40,
+                        )
                       ],
                     ),
                   ),

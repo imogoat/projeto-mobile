@@ -142,33 +142,36 @@ class _CampaignPageState extends State<CampaignPage> {
                             ),
                             elevation: 0, // Elevação zerada, pois o Container aplica a sombra
                           ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.home,
-                                size: 40,
-                                color: Colors.black,
-                              ),
-                              SizedBox(height: 10),
-                              Text(
-                                'Imóvel',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.home,
+                                  size: 40,
                                   color: Colors.black,
                                 ),
-                              ),
-                              SizedBox(height: 5),
-                              Text(
-                                'Se você é proprietário',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.black54,
+                                SizedBox(height: 10),
+                                Text(
+                                  'Imóvel',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
                                 ),
-                              ),
-                            ],
+                                SizedBox(height: 5),
+                                Text(
+                                  'Se você é proprietário',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.black54,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -204,33 +207,36 @@ class _CampaignPageState extends State<CampaignPage> {
                             ),
                             elevation: 0,
                           ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.apartment,
-                                size: 40,
-                                color: Colors.black,
-                              ),
-                              SizedBox(height: 10),
-                              Text(
-                                'Vaga',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.apartment,
+                                  size: 40,
                                   color: Colors.black,
                                 ),
-                              ),
-                              SizedBox(height: 5),
-                              Text(
-                                'Se deseja dividir contas',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.black54,
+                                SizedBox(height: 10),
+                                Text(
+                                  'Vaga',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black,
+                                  ),
                                 ),
-                              ),
-                            ],
+                                SizedBox(height: 5),
+                                Text(
+                                  'Se deseja dividir contas',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.black54,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
