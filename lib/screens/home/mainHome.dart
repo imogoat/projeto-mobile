@@ -290,9 +290,8 @@ class _MainHomeState extends State<MainHome> {
                           SizedBox(
                             // height: (controller.immobile.length / 2).ceil() * 200,
                             width: MediaQuery.of(context).size.width,
-                            // height: MediaQuery.of(context).size.height,
+                            height: MediaQuery.of(context).size.height,
                             child: GridView.builder(
-                              shrinkWrap: true,  // Faz o GridView ajustar sua altura ao conteúdo
                               physics: const NeverScrollableScrollPhysics(),
                               gridDelegate:
                                   const SliverGridDelegateWithFixedCrossAxisCount(

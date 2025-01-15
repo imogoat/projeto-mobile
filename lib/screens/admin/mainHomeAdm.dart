@@ -203,8 +203,8 @@ class _MainHomeAdmPageState extends State<MainHomeAdmPage> {
                         : Stack(
                           children: [
                             SizedBox(
-                            height: (controller.immobile.length / 2).ceil() * 200,
                             width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.height,
                             child: GridView.builder(
                               physics: const NeverScrollableScrollPhysics(),
                               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
