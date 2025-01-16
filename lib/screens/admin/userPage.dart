@@ -94,10 +94,12 @@ class _UserPageState extends State<UserPage> {
     return AnimatedBuilder(
       animation: controller,
       builder: (_, __) {
-        if (controller.loading) {
-          return const Center(
-            child: CircularProgressIndicator(
-              color: Color(0xFF265C5F),
+        if (controller.loading && controller.user.isEmpty) {
+          return const Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(
+                color: Color(0xFF265C5F),
+              ),
             ),
           );
         }
@@ -108,7 +110,7 @@ class _UserPageState extends State<UserPage> {
             padding: const EdgeInsets.all(20),
             child: Column(
               children: [
-                const SizedBox(height: 40),
+                const SizedBox(height: 20),
                 SizedBox(
                   width: 350,
                   child: Divider(),
@@ -157,6 +159,7 @@ class _UserPageState extends State<UserPage> {
                       ),))
                       : _Body(user: controller.user, onDelete: _confirmDelete),
                 ),
+                const SizedBox(height: 50),
               ],
             ),
           ),

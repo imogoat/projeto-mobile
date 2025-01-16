@@ -46,6 +46,9 @@ class _MainHomeState extends State<MainHome> {
   }
 
   Future<void> _loadImmobiles() async {
+    if (filteredImmobiles.isEmpty && !_isLoading) {
+      return;
+    }
     setState(() {
       _isLoading = true;
     });
@@ -201,6 +204,7 @@ class _MainHomeState extends State<MainHome> {
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -210,26 +214,26 @@ class _MainHomeState extends State<MainHome> {
                                           onPressed: () {
                                             _loadImmobiles();
                                           }),
-                                      const SizedBox(width: 3),
+                                      const SizedBox(width: 2.5),
                                       SubmitButtonHome(
                                           texto: 'AP',
                                           onPressed: () {
                                             _searchImmobilesByType(
                                                 'apartamento');
                                           }),
-                                      const SizedBox(width: 3),
+                                      const SizedBox(width: 2.5),
                                       SubmitButtonHome(
                                           texto: 'Casa',
                                           onPressed: () {
                                             _searchImmobilesByType('casa');
                                           }),
-                                      const SizedBox(width: 3),
+                                      const SizedBox(width: 2.5),
                                       SubmitButtonHome(
                                           texto: 'Quitinete',
                                           onPressed: () {
                                             _searchImmobilesByType('quitinete');
                                           }),
-                                      const SizedBox(width: 3),
+                                      const SizedBox(width: 2.5),
                                     ],
                                   ),
                                   Row(
@@ -301,8 +305,7 @@ class _MainHomeState extends State<MainHome> {
                             // height: (controller.immobile.length / 2).ceil() * 200,
                             // width: MediaQuery.of(context).size.width,
                             // height: MediaQuery.of(context).size.height,
-                            child: Expanded(
-                              child: GridView.builder(
+                            child: GridView.builder(
                                 shrinkWrap: true,
                                 physics: const NeverScrollableScrollPhysics(),
                                 gridDelegate:
@@ -425,12 +428,11 @@ class _MainHomeState extends State<MainHome> {
                                 },
                               ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 40,
-                          )
                         ],
                       ),
+                SizedBox(
+                  height: 40,
+                )
               ],
             ),
           );

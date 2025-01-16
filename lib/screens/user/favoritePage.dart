@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:imogoat/data/provider/favoriteProvider.dart';
 import 'package:imogoat/screens/user/immobileDetailPage.dart';
+import 'package:imogoat/styles/color_constants.dart';
 import 'package:provider/provider.dart';
 
 class FavoritePage extends StatefulWidget {
@@ -32,7 +33,7 @@ class _FavoritePageState extends State<FavoritePage> {
         }
 
         return Scaffold(
-          backgroundColor: const Color(0xFFF0F2F5),
+          backgroundColor: background,
           body: favoriteProvider.favorites.isEmpty
               ? const Center(
                   child: Text(

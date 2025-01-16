@@ -217,7 +217,7 @@ class _ImmobileDetailPageState extends State<ImmobileDetailPage> {
               widget.immobile.images.isNotEmpty
                   ? CarouselSlider(
                       options: CarouselOptions(
-                        height: 250,
+                        height: 400,
                         viewportFraction: 1.0,
                         enlargeCenterPage: true,
                         autoPlay: true,
@@ -248,7 +248,7 @@ class _ImmobileDetailPageState extends State<ImmobileDetailPage> {
                 width: 400,
                 child: Divider(),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 12),
               Center(
                 child: Column(
                   children: [
@@ -273,7 +273,7 @@ class _ImmobileDetailPageState extends State<ImmobileDetailPage> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 10),
                     Text(
                       '${formattedValue}',
                       style: const TextStyle(
@@ -285,7 +285,7 @@ class _ImmobileDetailPageState extends State<ImmobileDetailPage> {
                   ],
                 ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 12),
               Text(
                 'Detalhes da propriedade:',
                 style: const TextStyle(
@@ -293,7 +293,7 @@ class _ImmobileDetailPageState extends State<ImmobileDetailPage> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 10),
               Row(
                 children: [
                   const Icon(
@@ -311,7 +311,7 @@ class _ImmobileDetailPageState extends State<ImmobileDetailPage> {
                   ),
                 ],
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 10),
               Row(
                 children: [
                   const Icon(
@@ -329,7 +329,7 @@ class _ImmobileDetailPageState extends State<ImmobileDetailPage> {
                   ),
                 ],
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 10),
               Row(
                 children: [
                   const Icon(
@@ -347,7 +347,7 @@ class _ImmobileDetailPageState extends State<ImmobileDetailPage> {
                   ),
                 ],
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 10),
               Row(
                 children: [
                   const Icon(
@@ -365,7 +365,7 @@ class _ImmobileDetailPageState extends State<ImmobileDetailPage> {
                   ),
                 ],
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 12),
               Text(
                 'Localização:',
                 style: const TextStyle(
@@ -373,7 +373,7 @@ class _ImmobileDetailPageState extends State<ImmobileDetailPage> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 10),
               Row(
                 children: [
                   const Icon(
@@ -393,7 +393,7 @@ class _ImmobileDetailPageState extends State<ImmobileDetailPage> {
                   ),
                 ],
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: 12),
               Text(
                 'Descrição:',
                 style: const TextStyle(
@@ -401,7 +401,7 @@ class _ImmobileDetailPageState extends State<ImmobileDetailPage> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 10),
               Row(
                 children: [
                   Expanded(

@@ -97,7 +97,7 @@ class _MainHomeAdmPageState extends State<MainHomeAdmPage> {
     if (filteredImmobiles.isEmpty) {
       await controller.buscarImmobiles();
       filteredImmobiles = controller.immobile;
-      _isLoading = true;
+      _isLoading = false;
     } else {
       _isLoading = false;
     }
@@ -203,101 +203,105 @@ class _MainHomeAdmPageState extends State<MainHomeAdmPage> {
                         : Stack(
                           children: [
                             SizedBox(
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height,
+                            // width: MediaQuery.of(context).size.width,
+                            // height: MediaQuery.of(context).size.height,
                             child: GridView.builder(
-                              physics: const NeverScrollableScrollPhysics(),
-                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 10,
-                                mainAxisSpacing: 10,
-                                childAspectRatio: 1 / 1,
-                              ),
-                              itemCount: filteredImmobiles.length,
-                              itemBuilder: (context, index) {
-                                final immobile = filteredImmobiles[index];
-                                return GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => ImmobileDetailPage(immobile: immobile),
-                                      ),
-                                    );
-                                  },
-                                  child: Card(
-                                    color: Colors.white,
-                                    elevation: 5.0,
-                                    margin: const EdgeInsets.all(7.0),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(5),
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        children: <Widget>[
-                                          immobile.images.isNotEmpty
-                                              ? Image.network(
-                                                  immobile.images.first.url,
-                                                  height: 100,
-                                                  width: MediaQuery.of(context).size.width,
-                                                  fit: BoxFit.cover,
-                                                )
-                                              : const Text('Imagem indisponível'),
-                                          const SizedBox(height: 5),
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.end,
-                                            children: [
-                                              Text(
-                                                immobile.name,
-                                                style: const TextStyle(
-                                                 fontWeight: FontWeight.bold,
-                                                 fontSize: 14,
-                                                 color: Color(0xFF265C5F),
-                                                ),
-                                                textAlign: TextAlign.right,
-                                              ),
-                                              const SizedBox(width: 8),
-                                                IconButton(
-                                                  onPressed: () {
-                                                    final immobileId = immobile.id; // Mudança aqui
-                                                    print('Id do imóvel: $immobileId');
-                                                    confirmDelete(immobileId.toString());
-                                                  },
-                                                  icon: Icon(
-                                                    Icons.delete,
-                                                    color: Colors.red,
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 2,
+                                  crossAxisSpacing: 10,
+                                  mainAxisSpacing: 10,
+                                  childAspectRatio: 1 / 1,
+                                ),
+                                itemCount: filteredImmobiles.length,
+                                itemBuilder: (context, index) {
+                                  final immobile = filteredImmobiles[index];
+                                  return GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => ImmobileDetailPage(immobile: immobile),
+                                        ),
+                                      );
+                                    },
+                                    child: Card(
+                                      color: Colors.white,
+                                      elevation: 5.0,
+                                      margin: const EdgeInsets.all(7.0),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(5),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: <Widget>[
+                                            immobile.images.isNotEmpty
+                                                ? Image.network(
+                                                    immobile.images.first.url,
+                                                    height: 100,
+                                                    width: MediaQuery.of(context).size.width,
+                                                    fit: BoxFit.cover,
+                                                  )
+                                                : const Text('Imagem indisponível'),
+                                            const SizedBox(height: 5),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.end,
+                                              children: [
+                                                Text(
+                                                  immobile.name,
+                                                  style: const TextStyle(
+                                                   fontWeight: FontWeight.bold,
+                                                   fontSize: 14,
+                                                   color: Color(0xFF265C5F),
                                                   ),
-                                                )
-                                            ],
-                                          ),
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                              const Icon(
-                                                Icons.location_on,
-                                                size: 12,
-                                                color: Color(0xFF265C5F),
-                                              ),
-                                              const SizedBox(width: 4),
-                                              Text(
-                                                immobile.bairro,
-                                                style: const TextStyle(
-                                                  fontWeight: FontWeight.normal,
-                                                  fontSize: 10,
+                                                  textAlign: TextAlign.right,
+                                                ),
+                                                const SizedBox(width: 8),
+                                                  IconButton(
+                                                    onPressed: () {
+                                                      final immobileId = immobile.id; // Mudança aqui
+                                                      print('Id do imóvel: $immobileId');
+                                                      confirmDelete(immobileId.toString());
+                                                    },
+                                                    icon: Icon(
+                                                      Icons.delete,
+                                                      color: Colors.red,
+                                                    ),
+                                                  )
+                                              ],
+                                            ),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                const Icon(
+                                                  Icons.location_on,
+                                                  size: 12,
                                                   color: Color(0xFF265C5F),
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
+                                                const SizedBox(width: 4),
+                                                Text(
+                                                  immobile.bairro,
+                                                  style: const TextStyle(
+                                                    fontWeight: FontWeight.normal,
+                                                    fontSize: 10,
+                                                    color: Color(0xFF265C5F),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                );
-                              },
+                                  );
+                                },
+                              ),
                             ),
-                          ),
                           ]
                         ),
+                        SizedBox(
+                          height: 40,
+                        )
                       ],
                     ),
                   ),
