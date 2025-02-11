@@ -70,14 +70,14 @@ class _StapeFourCreateImmobilePageState extends State<StapeFourCreateImmobilePag
 
   Future<void> _selectImages() async {
     final List<XFile>? images = await _picker.pickMultiImage();
-    if (images != null && images.length <= 10) {
+    if (images != null && images.length <= 5) {
       setState(() {
         _selectedImages = images.map((image) => File(image.path)).toList();
       });
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Você só pode selecionar até 10 imagens.'),
+          content: Text('Você só pode selecionar até 5 imagens.'),
         ),
       );
     }

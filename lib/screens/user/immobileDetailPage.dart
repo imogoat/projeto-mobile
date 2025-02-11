@@ -255,20 +255,24 @@ class _ImmobileDetailPageState extends State<ImmobileDetailPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          '${widget.immobile.name},',
-                          style: const TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
+                        Flexible(
+                          child: Text(
+                            '${widget.immobile.name},',
+                            style: const TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                         const SizedBox(width: 8),
-                        Text(
-                          'N° ${widget.immobile.number}',
-                          style: const TextStyle(
-                            fontSize: 20,
-                            color: Colors.grey,
-                            fontWeight: FontWeight.bold,
+                        Flexible(
+                          child: Text(
+                            'N° ${widget.immobile.number}',
+                            style: const TextStyle(
+                              fontSize: 20,
+                              color: Colors.grey,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ],
